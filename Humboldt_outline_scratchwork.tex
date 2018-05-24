@@ -1,0 +1,144 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{graphicx}
+% uncomment according to your operating system:
+% ------------------------------------------------
+\usepackage[latin1]{inputenc}    %% european characters can be used (Windows, old Linux)
+%\usepackage[utf8]{inputenc}     %% european characters can be used (Linux)
+%\usepackage[applemac]{inputenc} %% european characters can be used (Mac OS)
+% ------------------------------------------------
+\usepackage{authblk}
+\usepackage[superscript]{cite}
+\usepackage[document]{ragged2e}
+\usepackage[T1]{fontenc}   %% get hyphenation and accented letters right
+\usepackage{mathptmx}      %% use fitting times fonts also in formulas
+% do not change these lines:
+\pagestyle{empty}                %% no page numbers!
+\usepackage[left=35mm, right=35mm, top=15mm, bottom=20mm, noheadfoot]{geometry}
+%% please don't change geometry settings!
+
+% begin the document
+\begin{document}
+	\thispagestyle{empty}
+	%make title bold and 14 pt font (Latex default is non-bold, 16 pt)
+	\title{\Large \textbf{Bayesian inference demonstrates inadequacies of Mie $n$-6 repulsive barrier at high pressures}} %High pressure simulations to infer the repulsive barrier of the Mie $n$-6 non-bonded potential
+	\author[1]{\large {\underline{Richard Messerly}}}%%[12 pt regular, presenting speaker underlined]
+	
+	
+	\affil[1]{\textit{Thermodynamics Research Center (TRC), National Institute of Standards and Technology (NIST),
+			Boulder, Colorado, 80305, USA}}
+	
+	\date{} % <--- leave date empty
+	\maketitle\thispagestyle{empty} %% <-- you need this for the first page
+	\begin{center}
+		\title{\textbf{ABSTRACT}}\centering{}
+	\end{center}
+	\justify
+
+Jadran, I have included outlines for two different proposals. The first proposal is to use more realistic nonbonded potentials to improve the high pressure extrapolation. The second proposal is to move beyond the Lorentz-Berthelot combining rules to improve the prediction of mixture properties. I would appreciate your insight regarding which of these is more likely to be funded and which is more important and/or interesting.
+
+\section{Outline: Need for more accurate nonbonded potentials}
+
+\begin{enumerate}
+	\item Background for hybrid data sets
+	\begin{enumerate}
+		\item Design of efficient and reliable chemical processes requires accurate equations of state over a wide range of temperatures and pressures
+		\item The quantity and quality of experimental data is insufficient for most compounds
+		\item Molecular simulation is an ideal approach for overcoming the data deficiency at extreme temperatures and pressures
+		\item Improved EOS are developed by supplementing experimental data with simulation results
+	\end{enumerate}
+	\item Reliability of hybrid data set approach depends on accuracy of force field, specifically, how well the model extrapolates to extreme temperatures and pressures
+	\begin{enumerate}
+		\item Recent work has demonstrated that the united-atom Lennard-Jones $n$-6 force field does not extrapolate from vapor-liquid equilibria to elevated pressures
+		\item Improved extrapolation requires a more physically realistic nonbonded potential, e.g. an extended Lennard-Jones (12-10-8-6) potential
+	\end{enumerate}
+	\item More sophisticated nonbonded potentials require higher dimensional parameterization
+	\begin{enumerate}
+		\item Multistate Bennett Acceptance Ratio (MBAR) combined with basis functions (BF) has been shown to greatly accelerate force field parameterization
+		\item MBAR reweights configurations sampled with a reference force field to predict energies and pressures for a non-simulated force field
+		\item Basis functions store the energy and pressure contributions from the $r^{-m}$ terms, where $m$ are integer values such as 12, 10, 8, and 6
+	\end{enumerate}
+	\item The combined MBAR-BF approach allows for iterative optimization of force field parameters to ensure internal consistency of derivative properties
+	
+\end{enumerate}
+
+\section{Outline: Hybrid data sets for mixtures}
+
+\begin{enumerate}
+	\item Background for hybrid data sets
+	\begin{enumerate}
+		\item Design of efficient and reliable chemical processes requires accurate equations of state over a wide range of temperatures and pressures
+		\item The quantity and quality of experimental data is insufficient for most mixtures
+		\item Molecular simulation can supplement experimental data when developing mixing rules
+	\end{enumerate}
+	\item Reliability of hybrid data set approach depends on accuracy of force field, specifically, the nonbonded cross interactions
+	\begin{enumerate}
+		\item Lorentz-Berthelot combining rules are common but not infallible
+		\item Alternative combining rules have not been tested extensively
+		\item Explicitly parameterizing the cross interactions should improve performance
+	\end{enumerate}
+	\item Including cross interactions as fitting parameters requires higher dimensional parameterization
+	\begin{enumerate}
+		\item Multistate Bennett Acceptance Ratio (MBAR) combined with basis functions (BF) has been shown to greatly accelerate force field parameterization
+		\item MBAR reweights configurations sampled with a reference force field to predict energies and pressures for a non-simulated force field
+		\item Basis functions store the energy and pressure contributions from the $r^{-m}$ terms, where $m$ are integer values such as 12, 10, 8, and 6
+	\end{enumerate}
+\end{enumerate}
+
+\section{Justification for funding}
+\begin{enumerate}
+    \item Why is this important?
+    \begin{enumerate}
+	    \item Reliable estimates of thermophysical properties are of practical industrial importance
+    \end{enumerate}	
+    \item Why me?
+    \begin{enumerate}
+	    \item Expertise in force field parameterization with MBAR-BF
+	\end{enumerate}
+	\item Several novelties to expand my research horizon:
+	\begin{enumerate}
+		\item EOS development
+		\item Hybrid data set approach
+	\end{enumerate}
+    \item Why Jadran?
+    \begin{enumerate}
+	    \item Dr. Vrabec has helped pioneer the EOS hybrid data set approach
+	    \item Substantial computational resources at disposal
+    \end{enumerate}
+\end{enumerate}
+
+%The reliability of molecular simulation results depends primarily on the force field. In particular, several thermophysical properties are highly sensitive to the non-bonded interactions. Unfortunately, determining the ``optimal'' parameters for a non-bonded potential model has traditionally been an arduous and time-consuming task. For example, non-bonded potentials are frequently parameterized using vapor-liquid equilibria (VLE) properties, such as saturated liquid and vapor densities, saturated vapor pressures, and heat of vaporization. This parameterization approach often requires large amounts of Gibbs Ensemble Monte Carlo (GEMC) or Grand Canonical Monte Carlo (GCMC) simulations using hundreds of different non-bonded parameter values. 
+%
+%A more efficient approach than simulating each proposed non-bonded parameter set is to reuse the information gained from nearby parameter sets. This study demonstrates how to utilize Multistate Bennett Acceptance Ratio (MBAR) for this purpose. Specifically, MBAR reweights configurations that are sampled using a few reference parameter sets to predict physical property values for other non-bonded parameter sets, without performing additional direct simulations. 
+%
+%The MBAR algorithm requires that the energies are recomputed for the sampled configurations using the new non-bonded parameter set. Basis functions are shown to be a computationally efficient method for recomputing these energies. Basis functions eliminate the need for looping through non-bonded interactions by providing a linear relationship between the total non-bonded energy and the non-bonded parameters. 
+%
+%We demonstrate that MBAR with basis functions reduces the computational cost by approximately three to five orders of magnitude relative to direct GEMC and GCMC simulations, where the reduction is greatest for larger molecules and systems. With this significant computational speed-up, we use a robust, high-dimensional, Bayesian optimization routine to simultaneously parameterize a Mie n-6 potential for several interaction sites.
+%		
+%	Over the past decade, the Mie $n$-6 (generalized Lennard-Jones, LJ) non-bonded potential has provided significant improvement when predicting vapor-liquid equilibria (VLE) properties of organic compounds. For united-atom (UA) force fields parameterized with VLE data, the optimal value of $n$ is typically greater than 12, in contrast to the traditional LJ 12-6. However, there exist strong theoretical concerns that $n \ge 12$ is too repulsive at short distances. While the forces at close-range distances do not dramatically impact VLE properties, they can play a large role at high pressures.
+%		
+%	For this reason, we investigate the practical implications of using a Mie $n$-6 potential for $n\ge12$ at high pressures. Specifically, we determine if the UA Mie $n$-6 accurately predicts the compressibility factor $(Z)$ and viscosity $(\eta)$ of normal and branched alkanes at high pressures. We observe a large positive bias in $Z$ and $\eta$ for $n>12$ at high pressures that increases with increasing $n$. Bayesian inference of the non-bonded parameters demonstrates that no set of $\epsilon$, $\sigma$, and $n$ adequately predicts both VLE and high pressure properties. Also, we do not observe any improvement when comparing the Mie $n$-6 results with those of the Buckingham exponential-6 potential, which is purported to have a more realistic repulsive barrier. These observations are of both practical and theoretical significance when selecting the ``best'' function form for computing non-bonded interactions.
+%	
+%	The reliability of molecular simulation results depends primarily on the force field, with the non-bonded interactions playing a key role. Unfortunately, non-bonded potentials that are empirically parameterized with thermophysical properties traditionally use iterative brute-force methods that require large amounts of molecular simulation. 
+%
+%A more efficient approach than simulating each proposed non-bonded parameter set is to reuse the information gained from nearby parameter sets. This study demonstrates how to utilize Multistate Bennett Acceptance Ratio (MBAR) for this purpose. Specifically, MBAR reweights configurations that are sampled using a few reference parameter sets to predict the internal energy and pressure for other non-bonded parameter sets, without performing additional direct simulations. 
+%
+%The MBAR algorithm requires that the energies and forces are recomputed for the sampled configurations using the new non-bonded parameter set. Basis functions are shown to be a computationally efficient method for recomputing these quantities. Basis functions eliminate the need for looping through non-bonded interactions by providing a linear relationship between the total non-bonded energy and the non-bonded parameters. 
+%
+%We demonstrate how to implement MBAR with NVT isothermal isochoric integration (ITIC) and Grand Canonical Monte Carlo (GCMC) to obtain vapor-liquid equilibria properties. MBAR with basis functions reduces the computational cost by approximately three to five orders of magnitude relative to direct simulation of VLE, where the reduction is greatest for larger molecules and systems. With this significant computational speed-up, we use a robust, high-dimensional, Bayesian optimization routine to simultaneously parameterize a Mie $n$-6 potential for several interaction sites. 
+%
+%	Accurate prediction of viscosity $(\eta)$ at high pressures $(P)$ necessitates an extremely reliable force field for at least two reasons. First, the viscosity at a given density $(\rho)$ is highly sensitive to the function form and associated parameters, especially those of the non-bonded interactions. Second, the viscosity depends strongly on the predicted density, which is also very sensitive to the force field. 
+%
+%To develop a highly accurate force field, the CH$_3$, CH$_2$, CH, and C non-bonded parameters are optimized simultaneously using a large data set. Since the challenge compound is 2,2,4-trimethylhexane (TMH), we chose 2,2,4-trimethylpentane (TMP, a.k.a. isooctane) as a surrogate molecule to improve transferability. Specifically, the optimal non-bonded parameters are obtained empirically by minimizing the deviation between the predicted and REFPROP $P\rho T$ and caloric properties for TMP over a wide range of state points, with particular emphasis at high pressures. 
+%
+%An essential aspect of the challenge is to provide meaningful estimates of uncertainty. For this reason, uncertainties in the predicted TMH viscosity are quantified using three different methods. First, we estimate systematic bias in the force field by comparing the simulated and REFPROP $\eta$ values for the surrogate compound, TMP, at the challenge temperature and pressures. Second, we account for the uncertainty in $\eta$ that is associated with uncertainties in $\rho$ for a given $P$. Third, we propagate the uncertainty in the force field non-bonded parameters using Bayesian inference. 
+
+
+%Fundamental equations of state (FEOS), such as those based on the Helmholtz free energy (e.g. REFPROP), are a powerful approach for estimating pressure, density, temperature $(P\rho T)$ behavior and caloric properties, such as internal energy $(U)$ and isochoric/isobaric heat capacities $(c_{\rm v}$ and $c_{\rm p}$, respectively). Unfortunately, most compounds do not have sufficient \textit{reliable} experimental data for a diverse set of thermodynamic properties covering a wide range of $P \rho T$ conditions to develop a highly-accurate FEOS. The lack of experimental data at high temperatures and pressures, especially, is attributed to the inherent safety, cost, and complexity of such experiments. By contrast, molecular simulation (i.e. Monte Carlo, MC, and molecular dynamics, MD) methods at high temperatures and pressures do not suffer from any of these limitations.
+%
+%For this reason, FEOS are developed for compounds with limited experimental data by including molecular simulation results at elevated temperatures and pressures. For this so-called ``hybrid data set'' approach to work, it is imperative that the force field be transferable over different $P \rho T$ conditions. Modern force fields for small compounds are sufficiently reliable at extreme state points to supplement experimental data when developing FEOS. By contrast, popular united-atom force fields for normal and branched alkanes that are highly accurate for estimating vapor-liquid equilbiria (VLE) properties suffer from significant systematic deviations at high pressures for the compressibility factor $(Z)$, $U$, and $c_{\rm v}$. For example, Bayesian inference suggests that the UA Mie $\lambda$-6 model type is not adequate for simultaneously predicting saturated liquid density $(\rho_{\rm l}^{\rm sat})$, saturated vapor pressure $(P_{\rm v}^{\rm sat})$, $Z$, $U$, and $c_{\rm v}$. Therefore, while considerable improvement in VLE is observed for the state-of-the-art Mie $\lambda$-6 potential over the traditional Lennard-Jones 12-6, the results from this study suggest that alternative models be considered for developing FEOS of normal and branched alkanes, such as force fields that use anisotropic-united-atom, all-atom, and/or alternative non-bonded potentials.
+
+%Molecular simulation results at extreme temperatures and pressures can supplement experimental data when developing fundamental equations of state. Since most force fields are optimized to agree with vapor-liquid equilibria (VLE) properties, however, the reliability of the molecular simulation results depends on the validity/transferability of the force field at higher temperatures and pressures. As demonstrated in this study, although state-of-the-art united-atom Mie $\lambda$-6 potentials for normal and branched alkanes provide accurate estimates for VLE, they tend to over-predict pressures for dense supercritical fluids and compressed liquids. The physical explanation for this observation is that the repulsive barrier is too steep for the ``optimal'' united-atom Mie $\lambda$-6 potential parameterized with VLE properties. Bayesian inference confirms that no feasible combination of non-bonded parameters ($\epsilon$, $\sigma$, and $\lambda$) is capable of simultaneously predicting saturated vapor pressures, saturated liquid densities, and pressures at high temperatures and densities. This conclusion has both practical and theoretical ramifications, as more realistic non-bonded potentials may be required for accurate extrapolation to high pressures of industrial interest. 
+
+
+
+\end{document}
