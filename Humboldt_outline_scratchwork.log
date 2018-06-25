@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.8.11)  24 MAY 2018 23:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.8.11)  25 JUN 2018 13:10
 entering extended mode
 **./Humboldt_outline_scratchwork.tex
 (Humboldt_outline_scratchwork.tex
@@ -358,15 +358,15 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 32.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 50.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 123.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 50.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 123.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 50.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 123.
  [1
 
 {C:/Users/ram9/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Overfull \hbox (3.11646pt too wide) in paragraph at lines 95--96
+Overfull \hbox (3.11646pt too wide) in paragraph at lines 159--160
 []\T1/ptm/m/n/10.95 Expertise in force field pa-ram-e-ter-i-za-tion and, specif
 -i-cally, the MBAR-BF method 
  []
@@ -386,7 +386,7 @@ TeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/ram9/AppData/Local/
 Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/ram9/AppData/Loc
 al/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Users/ram9/AppData/
 Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Humboldt_outline_scratchwork.pdf (2 pages, 56046 bytes).
+Output written on Humboldt_outline_scratchwork.pdf (2 pages, 56124 bytes).
 PDF statistics:
  26 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

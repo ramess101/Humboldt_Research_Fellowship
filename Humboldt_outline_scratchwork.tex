@@ -35,6 +35,79 @@
 
 Jadran, I have included outlines for two different proposals. The first proposal is to use more realistic nonbonded potentials to improve the high pressure extrapolation. The second proposal is to move beyond the Lorentz-Berthelot combining rules to improve the prediction of mixture properties. I would appreciate your insight regarding which of these is more likely to be funded and which is more important and/or interesting.
 
+%\section{Outline: Developing more accurate nonbonded potentials for EOS development}
+%
+%\begin{enumerate}
+%	\item Background to establish need for hybrid data sets
+%	\begin{enumerate}
+%		\item Design of efficient and reliable chemical processes requires accurate equations of state over a wide range of temperatures and pressures
+%		\item The quantity and quality of experimental data is insufficient for most compounds
+%		\item Molecular simulation is an ideal approach for overcoming the data deficiency at extreme temperatures and pressures
+%		\item Improved EOS are developed by supplementing experimental data with simulation results
+%	\end{enumerate}
+%	\item Reliability of hybrid data set approach depends on accuracy of force field, specifically, how well the model extrapolates to extreme temperatures and pressures
+%	\begin{enumerate}
+%		\item Recent work has demonstrated that the united-atom Lennard-Jones $n$-6 force field does not extrapolate from vapor-liquid equilibria conditions to elevated pressures
+%		\item Improved extrapolation requires a more physically realistic nonbonded potential
+%		\item For this reason, we propose the use of an extended Lennard-Jones (ex-LJ, 12-10-8-6) potential
+%	\end{enumerate}
+%    \item The ex-LJ 12-10-8-6 potential is more flexible than the LJ 12-6, and more theoretically justified than the Mie $n$-6
+%    \item Although the ex-LJ was proposed over two decades previously, it has not been tested as extensively as the LJ 12-6, Mie $n$-6, and exponential-6
+%	\item One reason for the lack of popularity is that the higher dimensional parameterization of the ex-LJ is computationally infeasible when implementing traditional iterative force field optimization approaches
+%	\begin{enumerate}
+%		\item Multistate Bennett Acceptance Ratio (MBAR) combined with basis functions (BF) has been shown to greatly accelerate force field parameterization
+%		\item MBAR reweights configurations sampled with a reference force field to predict thermodynamic properites for a non-simulated force field
+%		\item Basis functions store the contributions from the $r^{-m}$ terms for the nonbonded energies and forces
+%	\end{enumerate}
+%	\item The methodology proposed in this study is to:
+%	\begin{enumerate}
+%		\item Develop an EOS over the temperatures and pressures where reliable experimental data exist
+%		\item Fit the ex-LJ parameters to EOS derivative Helmholtz energy properties in range where EOS is reliable
+%		\item Perform molecular simulations at state points where experimental data are not available
+%		\item Iterate:
+%		\begin{enumerate}
+%			\item Refit the EOS to the hybrid data set
+%			\item Reoptimize the force field parameters to match EOS (using MBAR so that no additional molecular simulations are required)
+%		\end{enumerate}
+%	\end{enumerate}
+%	\item With this iterative approach, it is possible to ensure that the force field derivative properties are internally consistent with those of the EOS, resulting in better extrapolation for both the EOS and the force field
+%\end{enumerate}
+%
+%\section{Outline: Hybrid data sets for mixtures}
+%
+%\begin{enumerate}
+%	\item Background to establish need for better mixture models
+%	\begin{enumerate}
+%		\item Design of efficient and reliable chemical processes requires accurate mixture properties over a wide range of temperatures and pressures
+%		\item The quantity and quality of experimental data is insufficient for most mixtures
+%		\item Molecular simulation can supplement experimental data
+%	\end{enumerate}
+%	\item Reliability of hybrid data set approach depends on accuracy of force field, specifically, the nonbonded cross interactions are of great importance for mixtures
+%	\begin{enumerate}
+%		\item Lorentz-Berthelot combining rules are common but not infallible
+%		\item Alternative combining rules have not been tested extensively
+%		\item Binary interaction parameters have been shown to significantly improve predictability of mixtures of two-center Lennard-Jones plus dipole and quadrupole models 
+%	\end{enumerate}
+%    \item Since the arithmetic mean for the size parameter, $\sigma_{ij} = \frac{\sigma_i + \sigma_j}{2}$, is often quite reliable, we propose that a binary interaction parameter, $\xi$, be used only to scale $\epsilon_{ij} = \xi \sqrt{\epsilon_i \epsilon_j}$ 
+%    \item The methodology proposed in this study is to:
+%    \begin{enumerate}
+%    	\item Fit Helmholtz free energy EOS to available mixture data
+%    	\item Optimize $\xi$ to agree with EOS
+%    	\item Iterate:
+%    	\begin{enumerate}
+%    		\item Fit Helmholtz free energy EOS to hybrid data set
+%    		\item Reoptimize $\xi$ (and potentially other force field parameters) to agree with EOS (by using MBAR no additional simulations are required)
+%    	\end{enumerate}
+%    \end{enumerate}
+%%	\item The higher dimensional parameterization when explicitly fitting cross interactions is computationally infeasible when implementing traditional iterative force field optimization approaches
+%%	\begin{enumerate}
+%%		\item Multistate Bennett Acceptance Ratio (MBAR) combined with basis functions (BF) has been shown to greatly accelerate force field parameterization
+%%		\item MBAR reweights configurations sampled with a reference force field to predict thermodynamic properties for a non-simulated force field
+%%		\item Basis functions store the contributions from the $r^{-m}$ terms for the nonbonded energies and forces
+%%	\end{enumerate}
+%    \item With this iterative approach, it is possible to predict more accurate mixture properties
+%\end{enumerate}
+
 \section{Outline: Developing more accurate nonbonded potentials for EOS development}
 
 \begin{enumerate}
@@ -49,46 +122,37 @@ Jadran, I have included outlines for two different proposals. The first proposal
 	\begin{enumerate}
 		\item Recent work has demonstrated that the united-atom Lennard-Jones $n$-6 force field does not extrapolate from vapor-liquid equilibria conditions to elevated pressures
 		\item Improved extrapolation requires a more physically realistic nonbonded potential
-		\item For this reason, we propose the use of an extended Lennard-Jones (12-10-8-6) potential
+		\item For this reason, we propose the use of an extended Lennard-Jones (ex-LJ, 12-10-8-6) potential
 	\end{enumerate}
-	\item The higher dimensional parameterization of the ex-LJ is computationally infeasible when implementing traditional iterative force field optimization approaches
+	\item The ex-LJ 12-10-8-6 potential is more flexible than the LJ 12-6, and more theoretically justified than the Mie $n$-6
+	\item Although the ex-LJ was proposed over two decades previously, it has not been tested as extensively as the LJ 12-6, Mie $n$-6, and exponential-6
+	\item One reason for the lack of popularity is that the higher dimensional parameterization of the ex-LJ is computationally infeasible when implementing traditional iterative force field optimization approaches
 	\begin{enumerate}
 		\item Multistate Bennett Acceptance Ratio (MBAR) combined with basis functions (BF) has been shown to greatly accelerate force field parameterization
 		\item MBAR reweights configurations sampled with a reference force field to predict thermodynamic properites for a non-simulated force field
 		\item Basis functions store the contributions from the $r^{-m}$ terms for the nonbonded energies and forces
 	\end{enumerate}
-	\item With this approach, it is possible to ensure that the force field derivative properties are internally consistent with those of the EOS, resulting in better extrapolation for both the EOS and the force field
-\end{enumerate}
-
-\section{Outline: Hybrid data sets for mixtures}
-
-\begin{enumerate}
-	\item Background to establish need for better mixture models
+	\item The methodology proposed in this study is to:
 	\begin{enumerate}
-		\item Design of efficient and reliable chemical processes requires accurate mixture properties over a wide range of temperatures and pressures
-		\item The quantity and quality of experimental data is insufficient for most mixtures
-		\item Molecular simulation can supplement experimental data
+		\item Develop an EOS over the temperatures and pressures where reliable experimental data exist
+		\item Fit the ex-LJ parameters to EOS derivative Helmholtz energy properties in range where EOS is reliable
+		\item Perform molecular simulations at state points where experimental data are not available
+		\item Iterate:
+		\begin{enumerate}
+			\item Refit the EOS to the hybrid data set
+			\item Reoptimize the force field parameters to match EOS (using MBAR so that no additional molecular simulations are required)
+		\end{enumerate}
 	\end{enumerate}
-	\item Reliability of hybrid data set approach depends on accuracy of force field, specifically, the nonbonded cross interactions
-	\begin{enumerate}
-		\item Lorentz-Berthelot combining rules are common but not infallible
-		\item Alternative combining rules have not been tested extensively
-		\item Explicitly parameterizing the cross interactions should improve performance
-	\end{enumerate}
-	\item The higher dimensional parameterization when explicitly fitting cross interactions is computationally infeasible when implementing traditional iterative force field optimization approaches
-	\begin{enumerate}
-		\item Multistate Bennett Acceptance Ratio (MBAR) combined with basis functions (BF) has been shown to greatly accelerate force field parameterization
-		\item MBAR reweights configurations sampled with a reference force field to predict thermodynamic properties for a non-simulated force field
-		\item Basis functions store the contributions from the $r^{-m}$ terms for the nonbonded energies and forces
-	\end{enumerate}
-    \item With this approach, it is possible to predict more accurate mixture properties
+	\item With this iterative approach, it is possible to ensure that the force field derivative properties are internally consistent with those of the EOS, resulting in better extrapolation for both the EOS and the force field
+    \item Important to develop new combining rules for cross interactions of ex-LJ
+    \item Additional binary interaction parameters improve agreement with mixture properties
 \end{enumerate}
 
 \section{Justification for funding}
 \begin{enumerate}
     \item Why is this important?
     \begin{enumerate}
-	    \item Reliable estimates of thermophysical properties are extremely important for practical industrial applications
+	    \item Reliable estimates of thermophysical properties have signficant practical industrial applications
     \end{enumerate}	
     \item Why me?
     \begin{enumerate}
