@@ -1,0 +1,261 @@
+\documentclass[12pt]{article}
+
+\usepackage{fullpage}
+\usepackage{cite}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{chemfig}
+\usepackage{indentfirst}
+\usepackage{setspace}
+
+\doublespacing
+
+\begin{document}
+
+\section{Statement of the problem}
+
+The National Institute of Standards and Technology (NIST) Thermodynamics Research Center (TRC) is a premier organization in evaluating thermodynamic data that are necessary for various engineering purposes. In this regard, molecular simulation has become an efficient method for predicting thermophysical properties. The accuracy of such predictions is based upon the assumptions made in the development of the molecular model and the parameterization of the force field, where the intermolecular parameters are typically of utmost importance. For example, different assumptions are too restrictive to allow accurate prediction of several different properties. After selecting the model form, the force field parameters are usually obtained to reproduce liquid density $(\rho_L)$, vapor pressure $(P_v)$, and/or heat of vaporization $(\Delta H_v)$ data. However, due to the high computational cost for molecular simulations these parameters are usually optimized in a brute-force manner where the entire parameter space is rarely considered. This type of optimization is limited in its ability to assure that a global minimum is obtained, assess the degree of nonlinear coupling, and quantify the uncertainty in the optimal parameters. An alternative optimization approach is necessary to overcome these deficiencies. In this study, we utilize a novel approach to force-field parameterization that facilitates a simultaneous optimization of several parameters to large amounts of experimental data. Our goal is to utilize this approach with the extensive, experimental data archives available at NIST/TRC to develop more self-consistent, predictive force-field models.
+
+%Alternatively, if the number of molecular simulations required for parameterization is reduced  if the parameterization can be performed with fewer molecular simulations, a simultaneous optimization for several parameters can overcome these deficiencies. Our goal is to use the extensive experimental data archives available at NIST/TRC and advanced multidimensional optimization techniques to generate self-consistent, predictive force-field models applicable over wide range of conditions.  
+
+%Molecular simulation has become an efficient means for predicting thermophysical and mechanical properties of different substances that are relevant for various engineering purposes. Relatively simple, semiempirical force field-based models appear to provide sufficient framework for quantitative predictions of a range of properties. The key issues with predictive molecular modeling are the assumptions made in the model and the parametrization of the force field. Different assumptions, such as a united-atom (UA) Lennard-Jones 12-6 (LJ 12-6) model, are too restrictive to allow accurate prediction of several different properties. After establishing the model assumptions, the force field parameters are usually obtained to reproduce limited experimental observations, often of questionable or unknown quality. Furthermore, the parameter adjustments are usually performed in a brute-force manner, without considerations of nonlinear coupling between multiple parameters. Due to the high computational cost for molecular simulations typically only a few parameters are optimized simultaneously while other parameters are transferred from an independent force field optimization. This assumption of transferability can constrain the new parameter set to overcompensate in the optimization process. As a result, the models (that reproduce the data that they were calibrated against) often poorly extrapolate to different conditions or different properties. Uncertainties associated with such extrapolations are not easily quantifiable. Alternatively, if the parameterization can be performed with fewer molecular simulations, a simultaneous optimization for several parameters can overcome these deficiencies. Our goal is to use the extensive experimental data archives available at NIST/TRC and advanced multidimensional optimization techniques to generate self-consistent, predictive force-field models applicable over wide range of conditions.
+
+%Molecular modeling (i.e., Monte Carlo and molecular dynamics methods) are becoming computationally-accessible for large-scale simulations of various thermophysical and mechanical properties of substances. Relatively simple, semiempirical force field-based models appear to provide sufficient framework for quantitative predictions of a range of properties. The key issue with predictive molecular modeling is the parametrization of the force field. There are a large number of force fields in existence and significant efforts are spent on their development and improvement. However, to-date, development of force field models is not performed in a systematic manner. The parameters are usually obtained to reproduce limited experimental observations, often of questionable or unknown quality. Furthermore, the parameter adjustments are usually performed in a brute-force manner, without considerations of nonlinear coupling between multiple parameters. As a result, the models (that reproduce the data that they were calibrated against) often poorly extrapolate to different conditions or different properties. Uncertainties associated with such extrapolations are not easily quantifiable. Our goal is to use the extensive experimental data archives available at NIST/TRC and advanced multidimensional optimization techniques to generate self-consistent, predictive force-field models applicable over wide range of conditions.
+
+\section{Background and relevance to previous work}
+
+The traditional approach of developing a family of force fields is to begin with compounds that contain the fewest number of site types. For example, it is common to start with the \textit{n}-alkane family, in particular ethane and the smaller chain-lengths, and then introduce additional functional groups by optimizing force field parameters for small compounds where previously optimized parameters are transferred when applicable. However, the assumption of transferability can constrain the new parameter set to overcompensate when a sequential optimization is implemented. 
+
+The Transferable Potentials for Phase Equilibria (TraPPE) family of force fields is one of the most inclusive databases of transferable potential parameters for industrially relevant organic functional groups. The united-atom version (TraPPE-UA) currently has more than 30 different UA Lennard-Jones 12-6 (LJ 12-6) site types. However, many studies have demonstrated that a UA LJ 12-6 model is not flexible enough to accurately describe $\rho_L$, $P_v$, and $\Delta H_v$, which are typically the properties of interest when optimizing a force field model \cite{TraPPE_EH,Mie,Pareto}. There are essentially three different ways to overcome this shortcoming: explicit hydrogen (EH), anisotropic united-atom (AUA), and a more flexible mathematical model such as the Exponential-6 (Exp-6) or Mie $\lambda$-6 model.
+
+Chen et al. demonstrated that an EH model can improve the agreement in the normal boiling point $(T_b)$ for \textit{n}-alkanes from 4\% for the UA model \cite{TraPPE} to less than 0.5\% without sacrificing the performance for $\rho_L$ \cite{TraPPE_EH}. The disadvantage to the EH approach is the significant increase in computational cost, especially for larger compounds. For this reason, the TraPPE-UA version is still quite popular compared to TraPPE-EH. Alternatively, Ungerer et al. have observed excellent agreement between $P_v$, $\Delta H_v$, and $\rho_L$ for the AUA approach \cite{AUA3,AUA4}. The AUA method has the disadvantage that it is not supported by all software packages due to a slight increase in complexity. Errington et al. \cite{Exp6} and Potoff et al. \cite{Mie} have demonstrated that the Exp-6 and Mie $\lambda$-6 models provide considerable improvement over the LJ 12-6 model as they can simultaneously represent $P_v$, $\Delta H_v$, and $\rho_L$. The advantage of modifying the mathematical model rather than the EH and AUA approaches is that the computational cost and complexity is relatively unaffected. 
+
+From an optimization standpoint, the EH approach significantly increases the number of parameters. The AUA approach introduces a single additional parameter for each UA site. However, one advantage of the AUA approach is that the shifting parameter $(\delta)$ has physical meaning and can be approximated \textit{a priori}. Although the Mie $\lambda$-6 model also requires an additional parameter when compared to the LJ 12-6 model, this model appears to be more popular than the AUA approach due to its simple implementation. For these reasons, in this study we utilize the Mie $\lambda$-6 potential with the UA assumption.
+
+The standard optimization procedure is to find the parameter set that minimizes the objective function:
+\begin{equation} \label{Objective}
+F(b) = \sum_{i} \left(\frac{\hat{f}(b;T_i) - f_{\exp,i}}{\delta f_{i}}\right)^2
+\end{equation}
+where $b$ is the set of parameters, $\hat{f}(b;T_i)$ is the predicted value for property $f$ at $T_i$ which corresponds to $f_{\exp,i}$, and $\delta f_{i}$ is the combined uncertainty in the predicted and experimental values. The unique difficulty when optimizing force field parameters is that the evaluation of $\hat{f}_i$ is not straightforward. On the contrary, evaluating $\hat{f}_i$ may require hours or days of computer time since this is typically achieved by performing molecular simulations at each $T_i$. Due to this high computational cost most studies do not perform a complete scan of the parameter space. However, recently it was demonstrated that GOMC enables a full parameter scan to verify that a global minimum is reached and to quantify the uncertainty in the parameters \cite{GOMC}. However, this approach is still limited to the case where only a few parameters are simultaneously optimized. An additional complication is that $\hat{f}$ has some inherent uncertainty when obtained from molecular simulation. This renders gradient-based optimization and uncertainty quantification difficult because both of these methods rely upon approximating derivatives in $\hat{f}$ with respect to $b$. In some cases, the uncertainty associated with the molecular simulation is too large to allow for an accurate assessment of these derivatives.
+
+%Although the Mie $\lambda$-6 potential has gained a lot of attention in the recent literature, the amount of functional groups for which reliable Mie $\lambda$-6 parameters are available is still quite limited. The primary reason for this is that the traditional parameterization approach with simulation will take years to be as inclusive as the TraPPE-UA LJ 12-6 database. Some attempts have been made at automating this process by utilizing the SAFT method \cite{Corr_SAFT}. However, this approach is more coarse grained, less transferable, and requires more empirical assumptions to account for heterogenous chains.
+
+For these reasons, some researchers have resorted to using molecular based equations of state as a surrogate model to approximate $\hat{f}$, e.g. PC-SAFT \cite{PC_SAFT}, SAFT-$\gamma$ \cite{GC_SAFT,Industry,Hetero,AUA_Mie}. In fact, some attempts have been made at automating this process with a corresponding state SAFT approach \cite{Corr_SAFT}. The results from Dufal et al. are significant since they demonstrate that very accurate results are possible when several compounds are optimized simultaneously to large amounts of data \cite{GC_SAFT}. However, use of a surrogate model is not as rigorous as molecular simulation and the development is not straightforward for more complex molecular models \cite{Deriv_GC_SAFT}. Therefore, it would be ideal if one could achieve the rigor and robustness of molecular simulation while not sacrificing the speed and precision of the surrogate model approach. We propose a method titled ``pair correlation function post-simulation optimization'' (PCF-PSO) that attempts to find a compromise between the surrogate model and molecular simulation methods for parameter optimization. 
+
+%In general, force field model development procedures are classified as either bottom-up or top-down. A bottom-up approach relies upon \textit{ab initio} calculations to fit the force field parameters whereas a top-down approach utilizes macroscopic data. Although the bottom-up approach has the appeal that it is truly predictive most \textit{ab initio} based force fields perform rather poorly at predicting macroscopic properties, particularly in the liquid phase. The top-down approach, on the other hand, is typically quite good at matching the experimental data to which the model was optimized. However, the performance of these semiempirical models can be quite poor at conditions for removed from those of the training set. 
+ 
+%The primary difficulty in force field parameterization 
+%  
+%There are two general methodologies for parameterizing force fields. The first method is to vary the intermolecular parameters until a given set of macroscopic data
+%
+%Unfortunately, the traditional approach of optimizing intermolecular potentials requires expensive molecular simulations over a wide range of state points. 
+
+\section{General Methodology}
+
+For this project we propose a systematic approach (PCF-PSO) to converting all of the Lennard-Jones 12-6 parameters from the TraPPE-UA force field to Mie $\lambda$-6 parameters. This approach assumes that the Mie $\lambda$-6 potential is capable of accurately representing $P_v$, $\Delta H_v$, and $\rho_L$ for the functional groups found in the TraPPE-UA database. The PCF-PSO method utilizes a perturbation theory approach similar in spirit to that used to develop the SPEADMD force field parameters \cite{SPEADMD}. The general assumption is that small perturbations in the intermolecular parameters can be accurately accounted for explicitly, i.e. without requiring additional simulations. Specifically, the TraPPE-UA model is taken as the unperturbed system and the perturbation is converting a LJ 12-6 model to a Mie $\lambda$-6 model.  
+
+The key advantages to the PCF-PSO approach is that approximations for $P_v$, $\Delta H_v$, and $\rho_L$ are obtained for any parameter set without additional simulations. Therefore, it is possible to perform more advanced multidimensional optimization algorithms, such as simulated annealing. Similarly, the assumption of transferability can be relaxed by increasing the number of parameters and compounds that are simultaneously optimized. This allows for a more extensive use of the evaluated experimental data that are available at NIST/TRC. In addition, it is possible to assess the degree of nonlinear coupling between parameters for an uncertainty analysis. In summary, PCF-PSO renders multidimensional parameterization feasible with regards to nonlinear coupling analysis, global minimum searches, and uncertainty quantification assessments.  
+
+\section{New or unusual methods}
+
+To our knowledge, the pair correlation function post-simulation optimization (PCF-PSO) method proposed in this document has never been implemented in the literature. In this section we discuss the implementation of the PCF-PSO method since the performance of this method is pivotal to achieving the desired goals of this research. 
+
+A force field model generally has the following form:
+
+\begin{equation}
+u = u_{intra} + u_{inter}
+\end{equation}
+where the force field has been separated into an intramolecular term $(u_{intra})$ and an intermolecular term $(u_{inter})$. Furthermore, the intermolecular portion can be divided between short-range interactions $(u_{inter}^{sr})$ and long-range interactions $(u_{inter}^{lr})$ to yield:
+\begin{equation} \label{inter_sr_lr}
+u = u_{intra} + u_{inter}^{sr} + u_{inter}^{lr}
+\end{equation}
+In this study we adopt the intramolecular and Coulombic parameters from the literature (the TraPPE-UA model) and, therefore, we are only concerned with optimizing the parameters for $u_{inter}^{sr}$. The importance for the distinction between the different terms in Equation \ref{inter_sr_lr} will become clear in the following discussion.
+
+We will consider two different force field models $(\beta$ and $\alpha)$ that only differ in $u_{inter}^{sr}$. In other words, the intramolecular and Coulombic parameters are the same while the short-range intermolecular parameters are different. For the remainder of the discussion the subscript will be omitted and it is implied that $u^{sr}$ refers to the intermolecular short-range interactions. The molar internal energy $(U)$ for the force field model with parameters $\beta$ can be expressed as:
+\begin{equation} \label{U_beta}
+<U(\beta)> = <U(\alpha)> + U_{inter}^{sr}(\beta) - U_{inter}^{sr}(\alpha)
+\end{equation}
+where $<...>$ denotes an ensemble average, $U(\beta)$ and $U(\alpha)$ are the internal energies for the force field model with parameters $\beta$ and $\alpha$, respectively, and $U_{inter}^{sr}(\beta)$ and $U_{inter}^{sr}(\alpha)$ are the contributions to $U$ from the short-range intermolecular interactions $(u^{sr})$ for the $\beta$ and $\alpha$ force field parameters, respectively. The assumption made in deriving Equation \ref{U_beta} is that the intramolecular and long-range contributions are the same for the two different parameter sets, $\beta$ and $\alpha$. We expect that this assumption is valid within the statistical uncertainties associated with the ensemble averages. Subsequently, pair-wise additivity of the two-body interactions is assumed in order to obtain the short-range intermolecular portion $(U_{inter}^{sr})$ for a polyatomic molecule:
+\begin{equation} \label{U_Inter_sr}
+U_{inter}^{sr}(b) = 2 \pi \rho R_g \sum_{i=1}^{N_S} \sum_{j=1}^{N_S} \int_{r_{i,j}=0}^{\infty} u_{i,j}^{sr}(b;r_{i,j}) g_{i,j}(b;r_{i,j}) r_{i,j}^2 dr_{i,j}
+\end{equation}
+where $\rho$ is the number density, $R_g$ is the universal gas constant, $N_S$ is the number of sites in a molecule, $u_{i,j}^{sr}(b;r_{i,j})$ is the short-range potential between sites $i$ and $j$ with intermolecular parameters $b$, and $g_{i,j}(b;r_{i,j})$ is the site-site radial distribution function between sites $i$ and $j$ obtained from intermolecular parameters $b$. Substitution of Equation \ref{U_Inter_sr} into Equation \ref{U_beta} and combining the two integrals for $U_{inter}^{sr}$ gives:
+\begin{equation} \label{U_exact}
+<U(\beta)> = <U(\alpha)> + 2 \pi \rho R_g \sum_{i=1}^{N_S} \sum_{j=1}^{N_S} \int_{r_{i,j}=0}^{\infty} \left[u_{i,j}^{sr}(\beta;r_{i,j}) g_{i,j}(\beta;r_{i,j}) - u_{i,j}^{sr}(\alpha;r_{i,j}) g_{i,j}(\alpha;r_{i,j}) \right] r_{i,j}^2 dr_{i,j}
+\end{equation}
+The next step involves the fundamental assumption in the PCF-PSO derivation which is that the radial distribution functions for the two force fields are approximately equal:
+\begin{equation} \label{RDF_approx}
+g_{i,j}(\beta;r_{i,j}) \approx g_{i,j}(\alpha;r_{i,j})
+\end{equation}
+For small differences between $\beta$ and $\alpha$ this assumption is valid. However, even for large deviations, this assumption is useful when optimizing a force field model because it allows one to predict $<U(\beta)>$ from $<U(\alpha)>$ without requiring any additional simulations. Applying Equation \ref{RDF_approx} to Equation \ref{U_exact} yields the final expression:
+\begin{equation} \label{U_approx}
+<U(\beta)> \approx <U(\alpha)> + 2 \pi \rho R_g \sum_{i=1}^{N_S} \sum_{j=1}^{N_S} \int_{r_{i,j}=0}^{\infty} \left[u_{i,j}^{sr}(\beta;r_{i,j}) - u_{i,j}^{sr}(\alpha;r_{i,j}) \right] g_{i,j}(\alpha;r_{i,j}) r_{i,j}^2 dr_{i,j}
+\end{equation}
+A similar derivation is possible for pressure $(P)$ starting with the expression:
+\begin{equation} \label{P_beta}
+<P(\beta)> = <P(\alpha)> + P_{inter}^{sr}(\beta) - P_{inter}^{sr}(\alpha)
+\end{equation}
+where the short-range intermolecular contributions to the pressure $(P_{inter}^{sr})$ for a polyatomic compound is (assuming pair-wise additivity):
+\begin{equation} \label{P_Inter_sr}
+P_{inter}^{sr}(b) = - \frac{2}{3} \pi \rho^2 \sum_{i=1}^{N_S} \sum_{j=1}^{N_S} \int_{r_{i,j}=0}^{\infty} \frac{du_{i,j}^{sr}(b;r_{i,j})}{dr_{i,j}} g_{i,j}(b;r_{i,j}) r_{i,j}^3 dr_{i,j}
+\end{equation}
+Substitution of Equation \ref{P_Inter_sr} into Equation \ref{P_beta} and combining the two integrals for $P_{inter}^{sr}$ gives:
+\begin{equation} \label{P_exact}
+<P(\beta)> = <P(\alpha)> - \frac{2}{3} \pi \rho^2 \sum_{i=1}^{N_S} \sum_{j=1}^{N_S} \int_{r_{i,j}=0}^{\infty} \left[\frac{du_{i,j}^{sr}(\beta;r_{i,j})}{dr_{i,j}} g_{i,j}(\beta;r_{i,j}) - \frac{du_{i,j}^{sr}(\alpha;r_{i,j})}{dr_{i,j}} g_{i,j}(\alpha;r_{i,j}) \right] r_{i,j}^3 dr_{i,j}
+\end{equation}
+Again we assume that Equation \ref{RDF_approx} is valid, i.e. that the radial distribution function is constant with respect to a change in the parameters such that:
+\begin{equation} \label{P_approx}
+<P(\beta)> \approx <P(\alpha)> - \frac{2}{3} \pi \rho^2 \sum_{i=1}^{N_S} \sum_{j=1}^{N_S} \int_{r_{i,j}=0}^{\infty} \left[\frac{du_{i,j}^{sr}(\beta;r_{i,j})}{dr_{i,j}} - \frac{du_{i,j}^{sr}(\alpha;r_{i,j})}{dr_{i,j}} \right] g_{i,j}(\alpha;r_{i,j}) r_{i,j}^3 dr_{i,j}
+\end{equation}
+
+%The molar internal energy $(U)$ for a polyatomic compound can be expressed as:
+%
+%\begin{equation} \label{Internal Energy}
+%U = <U_{intra}> + <U_{Coulomb}> + 2 \pi \rho R_g \sum_{i=1}^{N_S} \sum_{j=1}^{N_S} \int_{r=0}^{\infty} u_{i,j}(r) g_{i,j}(r) r^2 dr
+%\end{equation}
+%where $R_g$ is the universal gas constant, $<U_{intra}>$ is the ensemble average of the intramolecular contribution (bonds, angles, dihedrals, etc.), $<U_{Coulomb}>$ is the ensemble average of the Coulombic contribution (electrostatics), and the final term on the right is the non-Coulombic intermolecular contribution $(U_{inter})$. 
+% 
+%To calculate the internal energy of the vapor phase $(U_v)$ with Equation \ref{Internal Energy} we substitute $\rho_v$ for $\rho$ and $g_{i,j}$ is obtained from the vapor phase. Likewise, to calculate the internal energy of the liquid phase $(U_L)$ with Equation \ref{Internal Energy} we substitute $\rho_L$ for $\rho$ and $g_{i,j}$ is obtained from the liquid phase. 
+%
+%and liquid $(U_L)$ phases with Equation \ref{Internal Energy} $\rho$ is, respectively, $\rho_v$ and $\rho_L$ while $g_{i,j}$ is obtained from the corresponding phase.
+
+With expressions for $P$ and $U$ the heat of vaporization is calculated as:
+\begin{equation} \label{Heat of Vaporization}
+\Delta H_v = U_v - U_L + P_v (V_v - V_L)
+\end{equation}
+where $U_v$ and $U_L$ are the molar internal energies for the vapor and liquid phases, respectively, $P_v$ is the vapor pressure, and $V_v$ and $V_L$ are the vapor and liquid molar volumes, respectively. $U_v$ and $U_L$ are obtained from Equation \ref{U_approx} by using $\rho_v$ and $\rho_L$ and where $g_{i,j}(r_{i,j})$ is obtained from the vapor and liquid phases, respectively. As is typically recommended for calculating $P_v$ from molecular simulation, $P_v$ in Equation \ref{Heat of Vaporization} was calculated using the vapor phase simulations. In other words, Equation \ref{P_approx} is evaluated using $\rho_v$ for $\rho$ and $g_{i,j}(r_{i,j})$ is the radial distribution function for the vapor phase.
+
+%It is generally a safe assumption that the intramolecular energies in the vapor and liquid phases are the same, which can eliminate the need for calculating an ensemble average of $U_{intra}$.
+
+The largest assumption made in this approach is that $g_{i,j}(r_{i,j})$ is constant with respect to the intermolecular parameters. This assumption has been tested for the single-site Mie $\lambda$-6 model. Specifically, we varied the reduced values of $\epsilon$ and $\sigma$ between 0.8-1.2 while also varying $\lambda$ between integer values of 8-18. We calculated $P_v$, $U_v$, and $U_L$ with the $g(r)$ obtained from simulation for each set of $\epsilon$, $\sigma$, and $\lambda$. We also calculated $P_v$, $U_v$, $U_L$ for each set of $\epsilon$, $\sigma$, and $\lambda$ but with the $g(r)$ obtained from simulation of $\epsilon=1$, $\sigma=1$, and $\lambda=12$, i.e. the LJ 12-6. Our findings were that the PCF-PSO approach accurately predicts $U_L$ (within 1\%) while $P_v$ is less accurate (deviations as large as 5\%).
+
+One disadvantage to the PCF-PSO method is that liquid density $(\rho_L)$ is not included directly in the optimization. However, $\rho_L$ is known to be intimately related to both $\sigma$ and $r_{\min}$. Therefore, we recommend that the optimization procedure utilizes a constraint for $\sigma$ and/or $r_{\min}$. We propose two different means for determining the constraints that are placed upon $\sigma_{i,j}$ and $r_{\min,i,j}$. The first approach is to allow these values to vary by the same amount as the deviation for $\rho_L$ obtained from the TraPPE-UA model. In other words, if the TraPPE-UA model does a poor job representing $\rho_L$ then $\sigma_{i,j}$ and $r_{\min,i,j}$ will be less constrained. Whereas if the TraPPE-UA model accurately represents $\rho_L$ for a given species then the constraints will be tighter. Alternatively, comparing the results by Potoff et al. for ethane it can be assumed that neither value vary by more than 0.2\%.
+
+Having discussed how $P_v$, $\rho_L$, and $\Delta H_v$ are accounted for in the PCF-PSO approach, we discuss the unique aspects of the optimization procedure. Since $\Delta H_v$ depends upon $P_v$ we can simplify the optimization by utilizing an objective function that only depends on $\Delta H_v$.
+
+\begin{equation} \label{Objective HVP}
+F = \sum_{i}^{N_T} \left(\frac{\Delta H_v(T_i) - \Delta H_{v,i}}{\delta \Delta H_{v,i}}\right)^2
+\end{equation}
+where $N_T$ is the number of temperatures used in evaluation, $\Delta H_v(T_i)$ is the predicted $\Delta H_v$ at $T_i$, $\Delta H_{v,i}$ is the experimental $\Delta H_v$ at $T_i$, and $\delta \Delta H_{v,i}$ is the combined uncertainty in $\Delta H_v$ at $T_i$. That is, this accounts for both the uncertainty in the predicted and the experimental values for $\Delta H_v$.
+
+One advantage for using Equation \ref{Objective HVP} is that performing a single property $(\Delta H_v)$ optimization eliminates the need for weighting different terms in the objective function. Furthermore, $P_v$ is a noisy property and is highly sensitive to $g(r)$. Therefore, the assumption that $g(r)$ is constant is worse for approximating $P_v$ than for $U_v$ and $U_L$. For these reasons, we recommend that $P_v$ be directly excluded from the objective function until the optimal set of parameters $(\hat{b})$ are obtained for Equation \ref{Objective HVP}. Subsequently, a $P_v$ term may be added since only small deviations from $\hat{b}$ are expected at this stage in the optimization. Specifically, after obtaining $\hat{b}$ for Equation \ref{Objective HVP} we propose an objective function of the form:
+
+\begin{equation} \label{Objective HVP VP}
+F = w_{\Delta H_v} \sum_{i}^{N_T} \left(\frac{\Delta H_v(T_i) - \Delta H_{v,i}}{\delta \Delta H_{v,i}}\right)^2 + w_{P_v} \sum_{i}^{N_T} \left(\frac{P_v(T_i) - P_{v,i}}{\delta P_{v,i}}\right)^2
+\end{equation}
+where $w_{\Delta H_v}$ is the weighting for the $\Delta H_v$ portion of the objective function, $w_{P_v}$ is the weigthing for the $P_v$ portion of the objective function, $P_v(T_i)$ is the predicted $P_v$ at $T_i$, $P_{v,i}$ is the experimental $P_v$ at $T_i$, and $\delta P_{v,i}$ is the combined uncertainty associated with $P_v$ at $T_i$. We recommend that the ratio of weighting be approximately 1:40 $w_{P_v}$:$w_{\Delta H_v}$. 
+
+Having discussed the details, we now present the generic PCF-PSO algorithm for a single compound:
+
+\begin{enumerate}
+\item Select an initial set of parameters $(b_0)$
+\item Simulate compound in NVT ensemble at $\rho_v^{\star}(T_j)$ and $\rho_L^{\star}(T_j)$ over range of $T$
+\item Calculate radial distribution function $(g_{i,j}(b_0;r_{i,j}))$ for each simulation
+\item Calculate $P_v$ and $\Delta H_v$ using Equations \ref{P_approx} and \ref{Heat of Vaporization}, respectively
+\item Minimize objective function (Equation \ref{Objective HVP}) to obtain $b_1$ with constraints for $\sigma_{i,j}$ and $r_{\min,i,j}$
+\item Repeat Steps 2-5 where in Step 2 the simulations use $b_i$ and in Step 5 a new set of parameters $b_{i+1}$ are obtained
+\item Stop when $F$ and $b$ do not change (to within a predetermined tolerance) from iteration $i$ to step $i+1$  
+\item Repeat Steps 6-7 where the objective function includes $P_v$ such as Equation \ref{Objective HVP VP}
+\end{enumerate}
+
+In Step 2 $\rho_v^{\star}(T_j)$ and $\rho_L^{\star}(T_j)$ correspond to the experimental saturated vapor and liquid densities at $T_j$. Although validation of the aforementioned algorithm for a single compound is an important task, the primary goal of this study is to obtain improved parameters for a large set of functional groups. The complete algorithm to achieve this goal is:
+
+\begin{enumerate}
+\item Select several compounds
+\item Set initial parameters $(b_0)$ to values found in literature (i.e. TraPPE-UA)
+\item Simulate each compound in NVT ensemble at $\rho_v^{\star}(T_j)$ and $\rho_L^{\star}(T_j)$ over range of $T$
+\item Calculate radial distribution function $(g_{i,j}(b_0;r_{i,j}))$ for each simulation
+\item Calculate $P_v$ and $\Delta H_v$ using Equations \ref{P_approx} and \ref{Heat of Vaporization}, respectively
+\item Minimize objective function (Equation \ref{Objective HVP}) to obtain $b_1$ with constraints for $\sigma_{i,j}$ and $r_{\min,i,j}$
+\item Repeat Steps 2-5 where in Step 2 the simulations use $b_i$ and in Step 5 a new set of parameters $b_{i+1}$ are obtained
+\item Stop when $F$ and $b$ do not change (to within a predetermined tolerance) from iteration $i$ to step $i+1$
+\item Repeat Steps 7-8 where the objective function includes $P_v$ such as Equation \ref{Objective HVP VP}
+\end{enumerate}
+
+The compounds chosen in Step 1 are determined by several factors. The first factor is the availability of reliable experimental data, namely, $\rho_v$, $\rho_L$, $P_v$, and $\Delta H_v$. For this reason, NIST/TRC is an ideal location for this project. That is, NIST/TRC can provide large amounts of evaluated data and correlations for a plethora of different compounds. The second factor is the feasibility of simulating the compound. Specifically, larger compounds require larger simulations and, thus, more computational time. Fortunately, the first and second factor are typically cooperative since larger compounds tend to have fewer reliable experimental data. The third factor is the molecular structure of the compound. A compound with more functional groups can provide more insight and less redudant information. For example, if the selection of compounds is done appropriately, one can elucidate cross-interactions and, thereby, avoid the assumption of Lorentz-Berthelot combining rules. In fact, it is necessary to consider the molecular structures collectively of the entire set of compounds to assure that a unique solution is achieved. Since we are attempting to build upon the TraPPE-UA force field, we are inherently limited to compounds that contain UA sites that can be represented by TraPPE-UA.
+
+\section{Expected results, significance, and application}
+
+The expected results from this study are a family of Mie $\lambda$-6 force field parameters as inclusive as those for TraPPE-UA but for which $P_v$, $\Delta H_v$, and $\rho_L$ are accurately predicted. This family of force fields will provide researchers with more reliable prediction models than those existing in the literature. In addition, an uncertainty analysis will be performed to determine the nonlinear coupling between parameters. This will enable an uncertainty propagation when predicting properties for compounds and state points not used in the optimization procedure.
+
+In the scenario that the development of the PCF-PSO method takes more time than foreseen, we may only be able to reparameterize a few of the UA site types. At the very least, we will present a proof of concept for the \textit{n}-alkane family. This will allow future researchers to implement this method with more UA site types at a later date.  
+
+Previously we mentioned that $\rho_L$ can be implicitly included in the optimization by constraining $\sigma_{i,j}$ and/or $r_{\min,i,j}$. In fact, it may be beneficial to assign constraints to each of the parameters such that a ``trust region'' approach assures that the new set of optimal parameters $(b_{i+1})$ does not deviate too much from the previous iteration set $(b_i)$. The reason why a ``trust region'' might be necessary is because the most likely impediment to the success of the PCF-PSO method is the assumption of constant $g_{i,j}(r_{i,j})$ for the entire parameter space $(b)$. The size of these constraints would be determined by assessing the range over which $\epsilon_{i,j}$, $\sigma_{i,j}$, and $\lambda_{i,j}$ yield accurate $\Delta H_v$ and $P_v$.
+
+Alternatively, the PCF-PSO approach may be used in conjunction with a gradient-based optimization method (such as those proposed by Ungerer et al. \cite{AUA3}, Bourasseau et al. \cite{AUA4} and Hulsmann et al. \cite{GROW}). Each one of these methods requires partial derivatives of a macroscopic property with respect to the parameters. In the case of Bourasseau et al. these partial derivatives are rigorously related to the partial derivatives of $P_v$ and $U$ with respect to the parameters. For each of these methods the partial derivatives are approximated with crude forward-difference numerical expressions such as:
+\begin{equation} \label{Forward-difference}
+\frac{\partial X}{\partial b_k} = \frac{X(b_1,...,b_k + \delta_k,...,b_p) - X(b_1,...,b_k,...b_p)}{\delta_k}
+\end{equation}
+where $X$ is the desired property, there are $p$ parameters, and $b_k$ is the parameter being perturbed by the small amount $\delta_k$. The error for this method is on the order of $\delta_k$, however, this error can be reduced by using a higher order approximation. For example, a forward-backward-difference yields an error on the order of $\delta_k^2$ (remember that $\delta_k$ is small). This is expressed as:
+\begin{equation} \label{Forward-backward}
+\frac{\partial X}{\partial b_k} = \frac{X(b_1,...,b_k + \delta_k,...,b_p) - X(b_1,...,b_k - \delta_k,...b_p)}{2 \delta_k}
+\end{equation}
+The obvious disadvantage when using a higher order approximation is that additional simulations are required. For example, in Equation \ref{Forward-difference} an additional simulation is required to obtain $X(b_1,...,b_k + \delta_k,...,b_p)$ while in Equation \ref{Forward-backward} two additional simulations are required, one for $X(b_1,...,b_k + \delta_k,...,b_p)$ and one for $X(b_1,...,b_k - \delta_k,...,b_p)$. It is important to remember that an estimate for $\frac{\partial X}{\partial b_k}$ is necessary for all of the $p$ parameters. Therefore, a method using Equation \ref{Forward-difference} requires $p$ additional simulations while a method that uses Equation \ref{Forward-backward} requires $2 p$ additional simulations. By contrast, the PCF-PSO approach allows for an approximation of $P_v$ and $U$ directly without additional simulations. Therefore, this allows a very accurate numerical estimate of $\frac{\partial X}{\partial b_k}$. For example, an error on the order of $\delta_k^4$ can be achieved by using:
+\begin{equation} \label{Fourth-order}
+\frac{\partial X}{\partial b_k} = \frac{X(b_k - 2 \delta_k) - 8 X(b_k - \delta_k) + 8 X(b_k + \delta_k) - X(b_k + 2 \delta_k)}{12 \delta_k}
+\end{equation}
+where the notation has been simplified for clarity. In fact, numerical approximations are not even necessary for the PCF-PSO approach because analytic derivatives are attainable, although the integration must be performed numerically. For example, the partial derivatives for internal energy for the Mie $\lambda$-6 potential are calculated as:
+\begin{equation} \label{U_Eps}
+\frac{\partial U}{\partial \epsilon_{i,j}} = 2 \pi \rho R_g \sum_{i=1}^{N_S} \sum_{j=1}^{N_S} \int_{r=0}^{\infty} \frac{\partial u_{i,j}(r_{i,j})}{\partial \epsilon_{i,j}} g_{i,j}(r_{i,j}) r_{i,j}^2 dr_{i,j}
+\end{equation}
+\begin{equation} \label{U_sig}
+\frac{\partial U}{\partial \sigma_{i,j}} = 2 \pi \rho R_g \sum_{i=1}^{N_S} \sum_{j=1}^{N_S} \int_{r=0}^{\infty} \frac{\partial u_{i,j}(r_{i,j})}{\partial \sigma_{i,j}} g_{i,j}(r_{i,j}) r_{i,j}^2 dr_{i,j}
+\end{equation}
+\begin{equation} \label{U_lam}
+\frac{\partial U}{\partial \lambda_{i,j}} = 2 \pi \rho R_g \sum_{i=1}^{N_S} \sum_{j=1}^{N_S} \int_{r=0}^{\infty} \frac{\partial u_{i,j}(r_{i,j})}{\partial \lambda_{i,j}} g_{i,j}(r_{i,j}) r_{i,j}^2 dr_{i,j}
+\end{equation}
+Similar expressions can be determined for $\frac{\partial P_v}{\partial \epsilon_{i,j}}$, $\frac{\partial P_v}{\partial \sigma_{i,j}}$, and $\frac{\partial P_v}{\partial \lambda_{i,j}}$. These analytic forms are possible because we have assumed that $g(r)$ is constant with respect to the parameters, i.e. $\frac{\partial g(r)}{\partial \epsilon} = 0$, $\frac{\partial g(r)}{\partial \sigma} = 0$, and $\frac{\partial g(r)}{\partial \lambda} = 0$. This is a good assumption in this case since a gradient-based optimization approach performs small steps in the parameter space. The downside to a gradient-based optimization is that it is difficult to discern between local minima and to evaluate nonlinear coupling for a multidimensional parameter space. However, if the PCF-PSO algorithm outlined previously does not work for a global optimization, we will demonstrate how it can be used as a compliment to previously developed gradient-based optimization algorithms. 
+
+%Statement of the problem:
+%
+%Force field models are needed to predict properties needed in engineering
+%
+%Accurate representation of several properties requires more flexible models
+%
+%Assigning uncertainties is difficult
+%
+%Utilizing large amounts of data is difficult
+%
+%Transferability can lead to propagation of errors
+%
+%Background and relevance to previous work
+%
+%Studies have shown improvement achieved with EH, AUA, Exp-6, and Mie $\lambda$-6 models
+%
+%In particular the Mie $\lambda$-6 model has been shown to accurately represent HVP, VP, and LDN
+%
+%Uncertainty quantification is difficult
+%
+%Pareto front is difficult
+%
+%Gradient-based optimization approaches may get trapped in local minima 
+%
+%Nonlinear coupling is difficult to account for with brute fource
+%
+%GOMC have been able to scan an entire parameter space but higher order dimensions is not feasible
+%
+%General methodology:
+%
+%Optimize Mie $\lambda$-6 parameters for all the UA site groups that exist in TraPPE database
+%
+%New or unusual methods:
+%
+%Simulate several compounds over a wide range of temperatures at the saturated liquid and vapor densities
+%
+%Obtain accurate RDFs from NVT simulations
+%
+%Assume that the RDF is relatively constant with change in parameters
+%
+%Obtain a new set of optimal parameters
+%
+%Iterate until parameters remain fairly constant
+%
+%Expected results, significance, and application:
+%
+%Mie $\lambda$-6 parameters for entire TraPPE-UA database
+
+\bibliography{Proposal_NIST}
+\bibliographystyle{unsrt}
+
+\end{document}
