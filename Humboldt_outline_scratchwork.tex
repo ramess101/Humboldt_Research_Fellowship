@@ -16,6 +16,54 @@
 \usepackage[left=35mm, right=35mm, top=15mm, bottom=20mm, noheadfoot]{geometry}
 %% please don't change geometry settings!
 
+\usepackage{fullpage}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{chemfig}
+\usepackage{indentfirst}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{cellspace}
+\usepackage{palatino}
+%\usepackage{breqn}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{siunitx}
+\usepackage{xr}
+
+% italicized boldface for math (e.g. vectors)
+\newcommand{\bfv}[1]{{\mbox{\boldmath{$#1$}}}}
+% non-italicized boldface for math (e.g. matrices)
+\newcommand{\bfm}[1]{{\bf #1}}          
+
+%\newcommand{\bfm}[1]{{\mbox{\boldmath{$#1$}}}}
+%\newcommand{\bfm}[1]{{\bf #1}}
+\newcommand{\expect}[1]{\left \langle #1 \right \rangle} % <.> for denoting expectations over realizations of an experiment or thermal averages
+
+\newcommand{\var}[1]{{\mathrm var}{(#1)}}
+\newcommand{\x}{\bfv{x}}
+\newcommand{\y}{\bfv{y}}
+\newcommand{\f}{\bfv{f}}
+
+\newcommand{\hatf}{\hat{f}}
+
+\newcommand{\bTheta}{\bfm{\Theta}}
+\newcommand{\btheta}{\bfm{\theta}}
+\newcommand{\bhatf}{\bfm{\hat{f}}}
+\newcommand{\Cov}[1] {\mathrm{cov}\left( #1 \right)}
+\newcommand{\T}{\mathrm{T}}                                % T used in matrix transpose
+
+\newcommand\blfootnote[1]{%
+	\begingroup
+	\renewcommand\thefootnote{}\footnote{#1}%
+	\addtocounter{footnote}{-1}%
+	\endgroup
+}
+
+
 % begin the document
 \begin{document}
 	\thispagestyle{empty}
@@ -107,6 +155,192 @@ Jadran, I have included outlines for two different proposals. The first proposal
 %%	\end{enumerate}
 %    \item With this iterative approach, it is possible to predict more accurate mixture properties
 %\end{enumerate}
+
+\section{Rough draft: Developing more accurate nonbonded potentials for EOS development}
+
+\subsection{Introduction}
+
+As most chemical processes contain mixtures of several molecular species, the design of efficient and reliable chemical processes requires accurate prediction of thermophysical properties over a wide range of temperatures, pressures, and compositions. 
+
+ Furthermore, as most chemical processes contain mixtures of several species, mixture data are extremely valuable and important for the design of chemical processes.  equations of state over a wide range of temperatures and pressures.
+
+The ost chemical processes contain mixtures of several species, mixture data are extremely valuable and important for the design of chemical processes. Unfortunately, mixture data are especially scarce and the reliability is even more dubious than pure component data.
+
+%The design of efficient and reliable chemical processes requires accurate equations of state over a wide range of temperatures and pressures.
+
+The design of efficient and reliable chemical processes requires accurate prediction of thermophysical properties over a wide range of temperatures and pressures. Fundamental equations of state (FEOS), such as those based on the Helmholtz free energy (e.g. REFPROP), are a powerful approach for estimating pressure, density, temperature $(P\rho T)$ behavior and caloric properties, such as internal energy $(U)$ and isochoric/isobaric heat capacities $(c_{\rm v}$ and $c_{\rm p}$, respectively). Unfortunately, most compounds do not have sufficient \textit{reliable} experimental data for a diverse set of thermodynamic properties covering a wide range of $P \rho T$ conditions to develop a highly-accurate FEOS. The lack of experimental data at high temperatures and pressures, especially, is attributed to the inherent safety, cost, and complexity of such experiments. 
+
+As most chemical processes contain mixtures of several species, reliable estimation of mixture properties is extremely important. Although the FEOS is capable of predicting mixture properties, typically the deviations are larger than the pure species FEOS. One reason for the deficiency in mixture FEOS models is the scarcity of reliable mixture data. For this reason, applying the hybrid data set approach to mixtures is a potentially promising avenue. Developing reliable force fields and FEOS for pure species is an essential first step before focusing on multi-component systems.
+
+% molecular simulation of mixture properties
+
+% Unf mixture data are especially scarce mixture data are extremely valuable important for the design of chemical processes. Unfortunately, mixture data are especially scarce and the reliability is even more dubious than pure component data. 
+
+% but extremely valuable and important for the design of chemical processes. 
+
+%Mixture data are even more scarce
+%Need accurate pure species models before we can tackle mixtures
+
+By contrast, molecular simulation (i.e. Monte Carlo, MC, and molecular dynamics, MD) methods at high temperatures and pressures do not suffer from any of these limitations. For this reason, molecular simulation results at extreme temperatures and pressures can supplement experimental data when developing fundamental equations of state. To improve the performance of this so-called ``hybrid data set'' approach, it is imperative that the force field be transferable over different $P \rho T$ conditions. In a previous study, we demonstrated the poor transferability to high pressures of the popular united-atom Mie $n$-6 potential (of which the traditional Lennard-Jones 12-6 is a subclass). Therefore, we propose that alternative potential models be considered for developing FEOS. Specifically, we propose the development of extended Lennard-Jones (ex-LJ) force fields to improve the fundamental equations of state at high pressures.   
+
+\subsection{Theory}
+
+%Fundamental equations of state based on the Helmholtz free energy (HFE-FEOS) allow for reliable prediction of 
+
+Fundamental equations of state based on the Helmholtz free energy (HFE-FEOS) are expressed as 
+\begin{equation}
+\frac{A}{R_gT} \equiv \alpha = \alpha^{\rm ig} + \alpha^{\rm r}
+\end{equation} 
+where $A$ is the Helmholtz free energy, $R_g$ is the gas constant, $T$ is temperature, $\alpha$ is reduced Helmholtz free energy, $\alpha^{\rm ig}$ and $\alpha^{\rm r}$ are the ideal gas and residual contributions to the reduced Helmholtz free energy. As $\alpha^{\rm ig}$ is typically obtained using first principles (\textit{ab initio}) calculations, the primary focus of FEOS development is modeling $\alpha^{\rm r}$. The state-of-the-art model for pure species is  
+\begin{equation} \label{eq: Residual Helmholtz}
+\alpha^{\rm r} = \alpha_{\rm Pol}^{\rm r} + \alpha_{\rm Exp}^{\rm r} + \alpha_{\rm GBS}^{\rm r}
+\end{equation}
+Note that Equation \ref{eq: Residual Helmholtz} is semi-empirical and has a large number of fitting parameters (between 50 and 100). To avoid over-fitting, the number of parameters in Equation \ref{eq: Residual Helmholtz} depends on the amount of experimental data used to train the FEOS. The FEOS predictions can result in large errors when extrapolated to higher temperatures and pressures than the conditions for the training data. Improvement in an FEOS at high temperatures and pressures necessitates additional data for those conditions.
+
+%The ideal gas contribution to the Helmholtz free energy, $\alpha^{\rm ig}$, is typically obtained using first principles (\textit{ab initio}) calculations. The residual contribution, $\alpha^{\rm r}$, is the primary focus of FEOS development. The state-of-the-art approach is to use a highly flexible model  
+%\begin{equation} \label{eq: Residual Helmholtz}
+%\alpha^{\rm r} = \alpha_{\rm Pol}^{\rm r} + \alpha_{\rm Exp}^{\rm r} + \alpha_{\rm GBS}^{\rm r}
+%\end{equation}
+%Note that Equation \ref{eq: Residual Helmholtz} is semi-empirical and has a large number of fitting parameters (between 50 and 100). More parameters are permissible if the experimental data used to train the FEOS cover a wide enough range of temperatures and pressures. Therefore, the FEOS predictions can result in large errors when extrapolated to higher temperatures and pressures than the conditions for the training data. Improvement in an FEOS at high temperatures and pressures necessitates additional data for those conditions. 
+
+%To avoid over-fitting, it is important that the number of model parameters 
+
+The primary advantage of HFE-FEOS is that all thermodynamic properties are related to some combination of Helmholtz free energy derivatives with respect to temperature and density. The main disadvantage of HFE-FEOS is that large amounts of reliable experimental data are required which cover a wide range of temperatures and pressures. 
+%??=??^o+??^r
+%??^r=??_Pol^r+??_Exp^r+??_GBS^r
+
+For example, the following expressions demonstrate the interdependency of several thermodynamic properties \cite{Rutkai2015}:
+\begin{equation} \label{eq:Z}
+Z = 1 + A_{01}^{\rm dep}
+\end{equation}
+\begin{equation} \label{eq:Z_IC}
+\frac{1}{T} \left(\frac{-\partial Z}{\partial(1/T)}\right)_\rho = 1 + A_{01}^{\rm dep} - A_{11}^{\rm dep}
+\end{equation}
+\begin{equation} \label{eq:U}
+\frac{U^{\rm dep}}{R_gT} = A_{10}^{\rm dep}
+\end{equation}
+\begin{equation} \label{eq:U_IC}
+\frac{1}{R_g} \left(\frac{\partial U^{\rm dep}}{\partial T}\right)_\rho = -A_{20}^{\rm dep} 
+\end{equation} 
+\begin{equation} \label{eq:Z_IT}
+\rho \left(\frac{\partial Z}{\partial \rho}\right)_T = 1 + 2 A_{01}^{\rm dep} + A_{02}^{\rm dep} 
+\end{equation}
+where we introduce the notation 
+\begin{equation} \label{Residual Derivatives}
+A_{xy}^{\rm dep} R_gT \equiv (1/T)^x\rho^y \frac{\partial^{x+y}A^{\rm dep}}{\partial(1/T)^x \partial \rho^y}
+\end{equation}
+
+The development of fundamental equations of state (FEOS) based on the Helmholtz free energy is by no means novel. However, the use of hybrid data sets consisting of experimental and molecular simulation values has only been implemented in the last five years. 
+
+The simulation values that are typically included in hybrid data sets are derivatives of the residual Helmholtz free energy with respect to inverse temperature and/or density \cite{Thol2016_siloxane_first,Thol2016_siloxane,Thol2017,Rutkai2013,Thol2015}:
+\begin{equation} \label{Residual Derivatives}
+A_{xy}^{\rm r} R_gT \equiv (1/T)^x\rho^y \frac{\partial^{x+y}A^{\rm r}}{\partial(1/T)^x \partial \rho^y}
+\end{equation}
+Note that \textit{ms2} \cite{ms2}, the open-source simulation package developed by Jadran Vrabec's group, already computes $A_{xy}^{\rm r}$. Therefore, the infrastructure is already in place to implement the hybrid data set approach at the Technische Universitat Berlin.
+   
+We would like to emphasize the advantage of using $A_{xy}^{\rm dep}$ for developing FEOS, as this approach eliminates redundant information found in traditional macroscopic properties \cite{Thol2016_LJ,Rutkai2017,Lustig2015,Rutkai2013,Rutkai2015}. Furthermore, experimental data are typically measured for properties that relate only to first and second derivatives. By contrast, in principle, molecular simulation provides an avenue for estimating third derivatives and higher order terms, which are valuable when fitting FEOS.
+   
+We would like to emphasize the advantage of using $A_{xy}^{\rm dep}$ for developing FEOS, as this approach eliminates redundant information found in traditional macroscopic properties \cite{Thol2016_LJ,Rutkai2017,Lustig2015,Rutkai2013,Rutkai2015}. For example, the following expressions demonstrate the interdependency of several thermodynamic properties \cite{Rutkai2015}:
+\begin{equation} \label{eq:Z}
+Z = 1 + A_{01}^{\rm dep}
+\end{equation}
+\begin{equation} \label{eq:Z_IC}
+\frac{1}{T} \left(\frac{-\partial Z}{\partial(1/T)}\right)_\rho = 1 + A_{01}^{\rm dep} - A_{11}^{\rm dep}
+\end{equation}
+\begin{equation} \label{eq:U}
+\frac{U^{\rm dep}}{R_gT} = A_{10}^{\rm dep}
+\end{equation}
+\begin{equation} \label{eq:U_IC}
+\frac{1}{R_g} \left(\frac{\partial U^{\rm dep}}{\partial T}\right)_\rho = -A_{20}^{\rm dep} 
+\end{equation} 
+\begin{equation} \label{eq:Z_IT}
+\rho \left(\frac{\partial Z}{\partial \rho}\right)_T = 1 + 2 A_{01}^{\rm dep} + A_{02}^{\rm dep} 
+\end{equation}
+
+The Lennard-Jones 12-6 potential is limited
+
+Several variations of the ex-LJ potential can be proposed, e.g., 12-10-8-6, 14-10-8-6, 14-12-8-6.
+
+For example, the 12-10-8-6 ex-LJ potential is expressed as 
+\begin{equation}
+U_{\rm ex-LJ} = C_{12} r^{-12} + C_{10} r^{-10} + C_{8} r^{-8} + C_{6} r^{-6}
+\end{equation}
+where $C_{i}$ is the coefficient for the $r^{-i}$ term. Note that there must be at least one positive and one negative coefficient to account for the repulsive and attractive contributions, respectively. By solving a system equations, the coefficients can be related to the more traditional non-bonded parameters, namely, $\epsilon$, $\sigma$, and $r_{\rm min}$:
+\begin{eqnarray}
+U_{\rm ex-LJ}(r_{\rm min}) = -\epsilon
+\end{eqnarray}
+\begin{eqnarray}
+U_{\rm ex-LJ}(\sigma) = 0
+\end{eqnarray}
+\begin{eqnarray}
+\frac{\partial U_{\rm ex-LJ}(r_{\rm min})}{\partial r} = 0
+\end{eqnarray}
+
+Also, by defining $\epsilon$, $\sigma$, and $r_{\rm min}$ 
+
+The primary deficiency in the Mie $\lambda$-6 potential is that the optimal value of $\lambda$ is greater than 12 for reproducing vapor-liquid equilibria properties. Unfortunately, this conclusion is primarily  
+
+Improved extrapolation towards high pressure requires a more physically realistic non-bonded potential. 
+
+The extended Lennard-Jones potential 
+
+The ex-LJ 12-10-8-6 potential is more flexible than the two-parameter ($\epsilon$ and $\sigma$) LJ 12-6, and more theoretically justified than the three-parameter Mie $n$-6. However, it has not been tested as extensively as the LJ 12-6, Mie $n$-6, and exponential-6 potentials. Although the ex-LJ was proposed over two decades previously, the main reason for the lack of popularity is the additional complexity in parameterizing the ex-LJ potential. Due to the additional model parameters, the traditional approach
+
+Whereas the LJ 12-6, Mie $n$-6, and expo
+
+For example, the traditional approach to parameterize the Mie $n$-6 potential is to compare experimental vapor-liquid equilibria data with molecular simulation values for different sets of $\epsilon$, $\sigma$, and $n$. For the ex-LJ potential, this brute-force approach is computationally infeasible. For this reason, we propose an alternative optimization scheme that was recently developed.
+
+higher dimensional parameterization of the ex-LJ is computationally demanding when the force field is parameterized using traditional brute-force methods.
+
+One reason for the lack of popularity is the increased complexity due to the higher dimensional parameterization.
+
+A large amount of experimental data are required to obtain a unique set of non-bonded parameters. 
+
+
+
+To facilitate parameterization of ex-LJ potentials, we propose the use of Multistate Bennett Acceptance Ratio (MBAR) combined with basis functions (BF). Previous publications demonstrate that MBAR-BF reduces the computational cost by several orders of magnitude compared to direct molecular simulation. The combined MBAR-BF approach estimates ensemble averages for   MBAR has been shown to be a reliable approach for reweighting conf has been shown to greatly accelerate force field parameterization
+
+MBAR reweights configurations that are sampled with a reference force field to predict thermodynamic properties for a non-simulated force field. MBAR requires ``recalculating'' the non-bonded energies and forces for each configuration sampled. Basis functions greatly accelerate the cost of this recalculation step by storing the $\sum r^{-m}$ contributions. Basis functions are amenable to the extended Lennard-Jones potential. For example, the 
+
+Basis functions store the contributions from the $r^{-m}$ terms for the nonbonded energies and forces
+  
+\subsection{Methods}
+  
+  
+  
+The methodology proposed in this study is to:
+\begin{enumerate}
+	\item Develop a FEOS over the temperatures and pressures where reliable experimental data exist
+	\item Fit the ex-LJ parameters to FEOS derivative Helmholtz free energy properties in range where FEOS is reliable
+	\item Perform molecular simulations at state points where experimental data are not available
+	\item Iterate:
+	\begin{enumerate}
+		\item Refit the FEOS to the hybrid data set
+		\item Re-optimize the force field parameters to match FEOS (using MBAR so that no additional molecular simulations are required)
+	\end{enumerate}
+\end{enumerate}
+
+With this iterative approach, it is possible to ensure that the Helmholtz free energy derivative properties are internally consistent between the FEOS and the ex-LJ force field. The purpose for this iterative approach is to improve the extrapolation of FEOS and the reliability of the force field.
+
+With this iterative approach, it is possible to ensure that the force field derivative properties are internally consistent with those of the FEOS, resulting in better extrapolation for both the EOS and the force field. 
+
+As the ex-LJ potential has not been studied extensively, a significant step in this proposal is to develop new combining rules for cross interactions. For example, applying the traditional Lorentz-Berthelot combining rules allows for estimation of $\epsilon_{ij}$, $\sigma_{ij}$, and/or $r_{\rm min,ij}$ from $\epsilon_{ii}$, $\sigma_{ii}$, and/or $r_{\rm min,ii}$. Even in pure species systems, cross interactions are typically implemented to simply the parameterization and to avoid non-physical parameters. The cross interaction parameters play a eky role in mixture property estimates.  
+
+For example, the traditional Lorentz-Berthelot combining rules allow for estimation of $\epsilon_{ij}$, $\sigma_{ij}$, and/or $r_{\rm min,ij}$ from the . 
+
+The focus of this research is pure species properties 
+
+Important to develop new combining rules for cross interactions of ex-LJ. Additional binary interaction parameters improve agreement with mixture properties
+
+Although the focus of this research is developing highly accurate FEOS for pure species, it should be noted that reliable estimation of mixture properties is an extremely important area.
+
+
+
+%Specifically, the optimal $\lambda$ value is greater than $12$ for vapor-liquid equilibria which results in significant over-prediction of pressure.
+
+%Modern force fields for small compounds are sufficiently reliable at extreme state points to supplement experimental data when developing FEOS. By contrast, popular united-atom force fields for normal and branched alkanes that are highly accurate for estimating vapor-liquid equilbiria (VLE) properties suffer from significant systematic deviations at high pressures for the compressibility factor $(Z)$, $U$, and $c_{\rm v}$. For example, Bayesian inference suggests that the UA Mie $\lambda$-6 model type is not adequate for simultaneously predicting saturated liquid density $(\rho_{\rm l}^{\rm sat})$, saturated vapor pressure $(P_{\rm v}^{\rm sat})$, $Z$, $U$, and $c_{\rm v}$. Therefore, while considerable improvement in VLE is observed for the state-of-the-art Mie $\lambda$-6 potential over the traditional Lennard-Jones 12-6, the results from this study suggest that alternative models be considered for developing FEOS of normal and branched alkanes, such as force fields that use anisotropic-united-atom, all-atom, and/or alternative non-bonded potentials.
+
+%Molecular simulation results at extreme temperatures and pressures can supplement experimental data when developing fundamental equations of state. Since most force fields are optimized to agree with vapor-liquid equilibria (VLE) properties, however, the reliability of the molecular simulation results depends on the validity/transferability of the force field at higher temperatures and pressures. As demonstrated in this study, although state-of-the-art united-atom Mie $\lambda$-6 potentials for normal and branched alkanes provide accurate estimates for VLE, they tend to over-predict pressures for dense supercritical fluids and compressed liquids. The physical explanation for this observation is that the repulsive barrier is too steep for the ``optimal'' united-atom Mie $\lambda$-6 potential parameterized with VLE properties. Bayesian inference confirms that no feasible combination of non-bonded parameters ($\epsilon$, $\sigma$, and $\lambda$) is capable of simultaneously predicting saturated vapor pressures, saturated liquid densities, and pressures at high temperatures and densities. This conclusion has both practical and theoretical ramifications, as more realistic non-bonded potentials may be required for accurate extrapolation to high pressures of industrial interest.
 
 \section{Outline: Developing more accurate nonbonded potentials for EOS development}
 
@@ -207,6 +441,76 @@ Jadran, I have included outlines for two different proposals. The first proposal
 
 %Molecular simulation results at extreme temperatures and pressures can supplement experimental data when developing fundamental equations of state. Since most force fields are optimized to agree with vapor-liquid equilibria (VLE) properties, however, the reliability of the molecular simulation results depends on the validity/transferability of the force field at higher temperatures and pressures. As demonstrated in this study, although state-of-the-art united-atom Mie $\lambda$-6 potentials for normal and branched alkanes provide accurate estimates for VLE, they tend to over-predict pressures for dense supercritical fluids and compressed liquids. The physical explanation for this observation is that the repulsive barrier is too steep for the ``optimal'' united-atom Mie $\lambda$-6 potential parameterized with VLE properties. Bayesian inference confirms that no feasible combination of non-bonded parameters ($\epsilon$, $\sigma$, and $\lambda$) is capable of simultaneously predicting saturated vapor pressures, saturated liquid densities, and pressures at high temperatures and densities. This conclusion has both practical and theoretical ramifications, as more realistic non-bonded potentials may be required for accurate extrapolation to high pressures of industrial interest. 
 
+%This section discusses limitations to the primary conclusion from this study, namely, that UA Mie $\lambda$-6 force fields parameterized with VLE data should not be used to develop fundamental equations of state for normal and branched alkanes. The main limitation is that the poor extrapolation at high pressures is based solely on the trend of $Z$ with respect to inverse temperature. By contrast, the simulation values that are typically included in hybrid data sets are derivatives of the residual (or departure) Helmholtz free energy with respect to inverse temperature and/or density \cite{Thol2016_siloxane_first,Thol2016_siloxane,Thol2017,Rutkai2013,Thol2015}:
+%\begin{equation} \label{Residual Derivatives}
+%A_{xy}^{\rm dep} R_gT \equiv (1/T)^x\rho^y \frac{\partial^{x+y}A^{\rm dep}}{\partial(1/T)^x \partial \rho^y}
+%\end{equation}
+%We would like to emphasize the advantage of using $A_{xy}^{\rm dep}$ for developing FEOS, as this approach eliminates redundant information found in traditional macroscopic properties \cite{Thol2016_LJ,Rutkai2017,Lustig2015,Rutkai2013,Rutkai2015}. For example, the following expressions demonstrate the interdependency of the properties we computed, namely, $Z$ and $U^{\rm dep}$ with their derivatives along isochores and isotherms \cite{Rutkai2015}:
+%\begin{equation} \label{eq:Z}
+%Z = 1 + A_{01}^{\rm dep}
+%\end{equation}
+%\begin{equation} \label{eq:Z_IC}
+%\frac{1}{T} \left(\frac{-\partial Z}{\partial(1/T)}\right)_\rho = 1 + A_{01}^{\rm dep} - A_{11}^{\rm dep}
+%\end{equation}
+%\begin{equation} \label{eq:U}
+%\frac{U^{\rm dep}}{R_gT} = A_{10}^{\rm dep}
+%\end{equation}
+%\begin{equation} \label{eq:U_IC}
+%\frac{1}{R_g} \left(\frac{\partial U^{\rm dep}}{\partial T}\right)_\rho = -A_{20}^{\rm dep} 
+%\end{equation} 
+%\begin{equation} \label{eq:Z_IT}
+%\rho \left(\frac{\partial Z}{\partial \rho}\right)_T = 1 + 2 A_{01}^{\rm dep} + A_{02}^{\rm dep} 
+%\end{equation}
+%Unfortunately, with the exception of \textit{ms2} \cite{ms2}, we are not aware of any open-source simulation package that readily provides $A_{xy}^{\rm dep}$. 
+%%MRS2: this is something we can set up relatively easily for OpenFF (along with the similar derivatives for NPT), and perhapsshould.  Owen has been working along these lines.
+%%RAM2: I assume you mean OpenMM?
+%
+%In addition, macroscopic properties, such as $Z$ and $U^{\rm dep}$ (with their respective derivatives), are more readily understood and visualized than $A_{xy}^{\rm dep}$. Also, it is easier to quantify their impact on process design than derivatives in the residual Helmholtz free energy. For example, as demonstrated in 
+%%MRS3: check if there is a way to cite the number not superscripted.
+%%RAM3: Should have used \citenum not \cite
+%Reference \citenum{Thol2016_siloxane_first}, an inaccurate prediction of some $A_{xy}^{\rm dep}$ does not necessarily result in poor prediction of $P \rho T$ behavior or heat capacities. For these reasons, we did not base our conclusions on the adequacy of the UA Mie $\lambda$-6 potential to predict $A_{xy}^{\rm dep}$.
+%
+%Instead, we have presented $Z$ and, by inspection, the slope of $Z$ with respect to $1/T$ at constant $\rho$. Since these properties are equivalent to Equations \ref{eq:Z}-\ref{eq:Z_IC}, respectively, we have indirectly focused on only two of the Helmholtz derivatives, namely, $A_{01}^{\rm dep}$ and $A_{11}^{\rm dep}$. However, we also observed some deviations in $U^{\rm dep}$, the slope of $U^{\rm dep}$ with respect to $T$ at constant $\rho$, and the slope of $Z$ with respect to $\rho$ at constant $T$, which are equivalent to Equations \ref{eq:U}-\ref{eq:Z_IT}. Unfortunately, deficiencies are not as obvious for these properties due to the relatively large uncertainties in the REFPROP correlations, ca. 5~\% and 10~\% for $U^{\rm dep}$ and $\left(\frac{\partial U^{\rm dep}}{R_g \partial T}\right)_\rho$. Although these additional properties provide insight regarding $A_{10}^{\rm dep}$, $A_{20}^{\rm dep}$, $A_{01}^{\rm dep}$, and $A_{02}^{\rm dep}$, because the results are less conclusive they are provided only in Section \ref{Udep and Z_IT} of Supporting Information. Furthermore, the relationship between Equations \ref{eq:U}-\ref{eq:Z_IT} and the repulsive barrier, $\lambda$, is not obvious. By contrast, the observation that larger values of $\lambda$ over-predict $Z$ with increasing temperature is clear evidence that $\lambda > 12$ is not theoretically justified but, rather, is an empirical remedy that performs well for VLE.
+%
+%Future work should investigate more thoroughly the adequacy of UA Mie $\lambda$-6 (or other) force fields to predict $U^{\rm dep}$ and isochoric/isobaric heat capacities at high temperatures and pressures. For example, rigorous studies of this type have been performed on the single-site Lennard-Jones fluid \cite{Thol2016_LJ,Thol_LJTS,Rutkai2017}.  
 
+Importance sampling is a commonly used statistical technique for computing averages of properties for one model by reweighting configurations sampled with another model based on the ratio of probabilities for the two models. In chemistry and chemical physics, importance sampling from one or a set of simulations to another set of simulation conditions can be implemented using the MBAR algorithm.\cite{shirts-chodera:jcp:2008:mbar,arxivShirts2017}
+With MBAR the expectation $\langle O(\theta) \rangle$ for force field $(\theta)$ of any given observable $(O)$ can be expressed as:
+\begin{eqnarray} \label{MBAR O theta}
+\langle O(\theta)\rangle = \sum_{n=1}^{N} O(\x_{n};\theta) W_{n}(\theta)
+\end{eqnarray}
+where $\x_n$ are configurations sampled from one or more reference force fields $(\theta_{\rm ref})$, 
+$O(\x_{n};\theta)$ is the observable value using force field 
+$\theta$ with configurations $\x_n$, and $W_{n}(\theta)$ is the weight of the $n^{th}$
+configuration using force field $\theta$, calculated by using:
+\begin{eqnarray} \label{MBAR weights theta}
+W_{n}(\theta) = \frac{\exp[\hat{f}(\theta)-u(\x_{n};\theta)]}{\sum\limits_{k=1}^K N_k \, \exp[\hat{f}(\theta_{\rm ref,k}) - u(\x_{n};\theta_{\rm ref,k})]}
+\end{eqnarray}
+where the reduced free energies $(\hat f(\theta))$ are calculated with:
+\begin{eqnarray} \label{MBAR free energy theta}
+\hat f(\theta) &=& - \ln \sum_{n=1}^{N}
+\frac{\exp[-u(\x_{n};\theta)]}{\sum\limits_{k=1}^K N_k \, \exp[\hat{f}(\theta_{\rm ref,k}) - u(\x_{n};\theta_{\rm ref,k})]} \label{equation:estimator-of-free-energies}
+\end{eqnarray}
+where $K$ is the number of reference force fields, $N = \sum_k N_k$ is the total number of snapshots for all $K$ reference force fields, $N_k$ are the total number of snapshots from the $k^{th}$ reference force field, $\theta_{\rm ref,k}$ is the $k^{th}$ reference (i.e. simulated) force field, and $u(\x_{n};\theta) = \beta U(\x_n;\theta)$ is the reduced potential energy evaluated with $\theta$ for configuration $\x_n$  where $\beta = \frac{1}{k_{\rm B}T}$ and $k_{\rm B}$ is the Boltzmann constant. 
+
+Note that $\hat f(\theta_{\rm ref,k})$ is required to evaluate the denominator of Equations \ref{MBAR weights theta}-\ref{MBAR free energy theta}. The values for $\hat f(\theta_{\rm ref,k})$ are obtained by solving a system of $K$ equations for self-consistency. Specifically, an initial guess for $\hat f(\theta_{\rm ref,k})$ is used to evaluate Equation \ref{MBAR free energy theta} with $\theta=\theta_{\rm ref,k}$ to obtain updated values of $\hat f(\theta_{\rm ref,k})$. This process is repeated until the values for $\hat f(\theta_{\rm ref,k})$ converge to within a desired tolerance. Although solving the MBAR system of equations for self-consistency may require several iterations, fortunately, once this process has been performed $\hat f(\theta)$ (for an arbitrary $\theta$) is evaluated without further iteration.
+
+For the specific case of predicting $U^{\rm dep}$ and $Z$ for a non-sampled force field, expressed by the set of force field parameters $\theta$, the MBAR-based estimators for the departure internal energy and compressibility can be written as:
+\begin{eqnarray} \label{MBAR U theta}
+\langle U^{\rm dep}(\theta)\rangle = \sum_{n=1}^{N} U^{\rm dep}(\x_{n};\theta) W_{n}(\theta) 
+\end{eqnarray}
+\begin{eqnarray} \label{MBAR Z theta}
+\langle Z(\theta)\rangle = \sum_{n=1}^{N} Z(\x_{n};\theta) W_{n}(\theta) 
+\end{eqnarray}
+where the energies and forces are computed using force field $\theta$ for each configuration $(\x_{n})$ to determine $U^{\rm dep}(\x_{n};\theta)$ and $Z(\x_{n};\theta)$ (from the virial pressure \cite{Allen1987}), respectively, while the weights $(W_n(\theta))$ are again calculated using Equations \ref{MBAR weights theta}-\ref{MBAR free energy theta}.
+The performance of MBAR depends strongly on good phase space overlap, meaning that the configurations sampled by the reference force field(s) must represent a significant portion of the ``true'' configurations that the non-simulated force field would sample \cite{naden:jctc:2016}. If the configurational overlap is small, the MBAR estimates are often dominated by a few configurations, which are likely not representative of the ensemble that would be generated by direct simulation of force field $\theta$. The amount of overlap can be quantified by the number of effective samples $(N_{\rm eff})$ \cite{Dybeck2016}, using Kish's formula:
+\begin{eqnarray} \label{Neff}
+N_{\rm eff} = \frac{\left(\sum_n W_n\right)^2}{\sum_n W_n^2}
+\end{eqnarray}
+which reduces to $N_{\rm eff} = (\sum_n W_n^2)^{-1}$ when the weights are
+normalized. This has the property that when the weights are equal,
+$N_{\rm eff} = N$, when all but one weight is negligible, $N_{\rm eff} \approx
+1$, and behaves appropriately for intermediate cases. 
+In the case of poor overlap $(N_{\rm eff} \approx 1)$, the predicted values of MBAR will demonstrate a strong bias and the uncertainties will likely be underestimated by the MBAR covariance matrix. 
 
 \end{document}
