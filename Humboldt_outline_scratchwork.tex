@@ -156,6 +156,18 @@ Jadran, I have included outlines for two different proposals. The first proposal
 %    \item With this iterative approach, it is possible to predict more accurate mixture properties
 %\end{enumerate}
 
+\section{Description on website}
+
+The current state of research should first be briefly described and supported by approximately five revelant publications from the research area (one page max).
+
+The outline should focus on a clear description of the questions you intend to address in your research, their originality and significance for the advancement of the research field (approx. two pages).
+
+Furthermore, the academic methods to be used to achieve these goals should be clearly described and referenced, if appropriate (approx. two pages).
+
+The research outline should comprise approximately five pages in total (including references). Should you significantly exceed this length, you may be asked to cut it down to approximately five pages.
+
+For the purposes of evaluation it must be clearly demonstrated that you yourself have drawn up the main contents independently and agreed them beforehand with your host. Any contents contributed by the host institute must be attributed accordingly.
+
 \section{Rough draft: Developing more accurate nonbonded potentials for EOS development}
 
 \subsection{Introduction}
@@ -181,7 +193,9 @@ As most chemical processes contain mixtures of several species, reliable estimat
 %Mixture data are even more scarce
 %Need accurate pure species models before we can tackle mixtures
 
-By contrast, molecular simulation (i.e. Monte Carlo, MC, and molecular dynamics, MD) methods at high temperatures and pressures do not suffer from any of these limitations. For this reason, molecular simulation results at extreme temperatures and pressures can supplement experimental data when developing fundamental equations of state. To improve the performance of this so-called ``hybrid data set'' approach, it is imperative that the force field be transferable over different $P \rho T$ conditions. In a previous study, we demonstrated the poor transferability to high pressures of the popular united-atom Mie $n$-6 potential (of which the traditional Lennard-Jones 12-6 is a subclass). Therefore, we propose that alternative potential models be considered for developing FEOS. Specifically, we propose the development of extended Lennard-Jones (ex-LJ) force fields to improve the fundamental equations of state at high pressures.   
+By contrast, molecular simulation (i.e. Monte Carlo, MC, and molecular dynamics, MD) methods at high temperatures and pressures do not suffer from any of these limitations. For this reason, molecular simulation results at extreme temperatures and pressures can supplement experimental data \cite{Thol2016_LJ,Thol_LJTS,Rutkai2017,Lustig2015,Rutkai2015}. Recently, the host institute successfully applied this ``hybrid data set'' approach to dramatically extend the FEOS' range of applicability for several compounds \cite{Rutkai2013,Thol2016_siloxane_first,Thol2016_siloxane,Thol2017,Thol2015}. The inclusion of these simulation results improved the performance of the FEOS at extreme temperatures and pressures. To improve the performance of this so-called ``hybrid data set'' approach, it is imperative that the force field be transferable over different $P \rho T$ conditions. In a previous study, we demonstrated the poor transferability to high pressures of the popular united-atom Mie $n$-6 potential (of which the traditional Lennard-Jones 12-6 is a subclass). Therefore, we propose that alternative potential models be considered for developing FEOS. Specifically, we propose the development of extended Lennard-Jones (ex-LJ) force fields to improve the fundamental equations of state at high pressures.
+
+The primary limitation of this approach is that most force fields are not ``transferable'' over a wide range of $P \rho T$ conditions. For example, in a previous study, we demonstrated the poor transferability to high pressures of the popular united-atom Mie $n$-6 potential (of which the traditional Lennard-Jones 12-6 is a subclass).    
 
 \subsection{Theory}
 
@@ -238,7 +252,9 @@ A_{xy}^{\rm r} R_gT \equiv (1/T)^x\rho^y \frac{\partial^{x+y}A^{\rm r}}{\partial
 \end{equation}
 Note that \textit{ms2} \cite{ms2}, the open-source simulation package developed by Jadran Vrabec's group, already computes $A_{xy}^{\rm r}$. Therefore, the infrastructure is already in place to implement the hybrid data set approach at the Technische Universitat Berlin.
    
-We would like to emphasize the advantage of using $A_{xy}^{\rm dep}$ for developing FEOS, as this approach eliminates redundant information found in traditional macroscopic properties \cite{Thol2016_LJ,Rutkai2017,Lustig2015,Rutkai2013,Rutkai2015}. Furthermore, experimental data are typically measured for properties that relate only to first and second derivatives. By contrast, in principle, molecular simulation provides an avenue for estimating third derivatives and higher order terms, which are valuable when fitting FEOS.
+We would like to emphasize the advantage of using $A_{xy}^{\rm dep}$ for developing FEOS, as this approach eliminates redundant information found in traditional macroscopic properties \cite{Thol2016_LJ,Rutkai2017,Lustig2015,Rutkai2013,Rutkai2015}. Furthermore, experimental data are typically measured for properties that relate only to first and second derivatives. By contrast, in principle, molecular simulation provides an avenue for estimating third derivatives and higher order terms, which are valuable when fitting FEOS. In addition, with the iterative hybrid data set approach Equation BLANK can be used to provide non-redundant information for fitting the non-bonded potential parameters. 
+   
+In principle, this process could be reversed such that Equation BLANK would provide non-redundant information for fitting the non-bonded potential parameters.
    
 We would like to emphasize the advantage of using $A_{xy}^{\rm dep}$ for developing FEOS, as this approach eliminates redundant information found in traditional macroscopic properties \cite{Thol2016_LJ,Rutkai2017,Lustig2015,Rutkai2013,Rutkai2015}. For example, the following expressions demonstrate the interdependency of several thermodynamic properties \cite{Rutkai2015}:
 \begin{equation} \label{eq:Z}
@@ -259,7 +275,7 @@ Z = 1 + A_{01}^{\rm dep}
 
 The Lennard-Jones 12-6 potential is limited
 
-Several variations of the ex-LJ potential can be proposed, e.g., 12-10-8-6, 14-10-8-6, 14-12-8-6.
+
 
 For example, the 12-10-8-6 ex-LJ potential is expressed as 
 \begin{equation}
@@ -276,7 +292,13 @@ U_{\rm ex-LJ}(\sigma) = 0
 \frac{\partial U_{\rm ex-LJ}(r_{\rm min})}{\partial r} = 0
 \end{eqnarray}
 
-Also, by defining $\epsilon$, $\sigma$, and $r_{\rm min}$ 
+Also, by defining $\epsilon$, $\sigma$, and $r_{\rm min}$
+
+The most general expression for the extended Lennard-Jones non-bonded potential is:
+\begin{equation} \label{ex-LJ general}
+u_{\rm nb, exLJ} = \sum_m C_m r^{-m} 
+\end{equation} 
+where $m$ are integer values and $C_m$ are the coefficients for the corresponding $r^{-m}$ terms. Note that the traditional Lennard-Jones 12-6 potential is obtained if $C_6$ and $C_{12}$ are negative and positive, respectively, while all other $C_m$ values are zero. Traditionally, there are only two to four non-zero $C_m$ values, e.g., 16-6, 12-8-6, 14-12-8-6. The primary reasons for this are to simplify the fitting and to avoid over-fitting if the data are insufficient to characterize more parameters. In principle, however, any number of $C_m$ terms could be non-zero. 
 
 The primary deficiency in the Mie $\lambda$-6 potential is that the optimal value of $\lambda$ is greater than 12 for reproducing vapor-liquid equilibria properties. Unfortunately, this conclusion is primarily  
 
@@ -284,7 +306,9 @@ Improved extrapolation towards high pressure requires a more physically realisti
 
 The extended Lennard-Jones potential 
 
-The ex-LJ 12-10-8-6 potential is more flexible than the two-parameter ($\epsilon$ and $\sigma$) LJ 12-6, and more theoretically justified than the three-parameter Mie $n$-6. However, it has not been tested as extensively as the LJ 12-6, Mie $n$-6, and exponential-6 potentials. Although the ex-LJ was proposed over two decades previously, the main reason for the lack of popularity is the additional complexity in parameterizing the ex-LJ potential. Due to the additional model parameters, the traditional approach
+The ex-LJ 12-10-8-6 potential is more flexible than the two-parameter ($\epsilon$ and $\sigma$) LJ 12-6, and more theoretically justified than the three-parameter Mie $n$-6, particularly when $n \gg 12$. However, it has not been tested as extensively as the LJ 12-6, Mie $n$-6, and exponential-6 potentials. Although the ex-LJ was proposed over two decades previously, the main reason for the lack of popularity is the additional complexity in parameterizing the ex-LJ potential. Due to the additional model parameters, the traditional approach
+
+The $r^{-6}$, $r^{-8}$, and $r^{-10}$ terms can be derived from dispersive interactions and, therefore, it seems most reasonable for $C_6$, $C_8$, and $C_{10}$ to be negative. However, it is unclear how well a 12-10-8-6 potential would perform if only the $C_{12}$ coefficient is positive. Therefore, from an empirical standpoint, it is possible to allow all coefficients to be either positive or negative.
 
 Whereas the LJ 12-6, Mie $n$-6, and expo
 
@@ -294,7 +318,7 @@ higher dimensional parameterization of the ex-LJ is computationally demanding wh
 
 One reason for the lack of popularity is the increased complexity due to the higher dimensional parameterization.
 
-A large amount of experimental data are required to obtain a unique set of non-bonded parameters. 
+A large amount of experimental data are required to obtain a unique set of non-bonded parameters. Fitting non-bonded parameters to the Helmholtz free energy derivatives can provide non-redundant information.
 
 
 
@@ -320,11 +344,11 @@ The methodology proposed in this study is to:
 	\end{enumerate}
 \end{enumerate}
 
-With this iterative approach, it is possible to ensure that the Helmholtz free energy derivative properties are internally consistent between the FEOS and the ex-LJ force field. The purpose for this iterative approach is to improve the extrapolation of FEOS and the reliability of the force field.
+With this iterative approach, it is possible to ensure that the Helmholtz free energy derivative properties are internally consistent between the FEOS and the ex-LJ force field. The purpose for this iterative approach is to improve the extrapolation of FEOS and the reliability of the force field. Also, as the FEOS and force field become more internally consistent with each successive iteration, it is possible to increase the number of fitting parameters in both the FEOS and in the ex-LJ. 
 
 With this iterative approach, it is possible to ensure that the force field derivative properties are internally consistent with those of the FEOS, resulting in better extrapolation for both the EOS and the force field. 
 
-As the ex-LJ potential has not been studied extensively, a significant step in this proposal is to develop new combining rules for cross interactions. For example, applying the traditional Lorentz-Berthelot combining rules allows for estimation of $\epsilon_{ij}$, $\sigma_{ij}$, and/or $r_{\rm min,ij}$ from $\epsilon_{ii}$, $\sigma_{ii}$, and/or $r_{\rm min,ii}$. Even in pure species systems, cross interactions are typically implemented to simply the parameterization and to avoid non-physical parameters. The cross interaction parameters play a eky role in mixture property estimates.  
+As the ex-LJ potential has not been studied extensively, a significant step in this proposal is to develop new combining rules for cross interactions. For example, applying the traditional Lorentz-Berthelot combining rules allows for estimation of $\epsilon_{ij}$, $\sigma_{ij}$, and/or $r_{\rm min,ij}$ from $\epsilon_{ii}$, $\sigma_{ii}$, and/or $r_{\rm min,ii}$. Even in pure species systems, cross interactions are typically implemented to simplify the parameterization and to avoid non-physical parameters. The cross interaction parameters play a key role in mixture property estimates.  
 
 For example, the traditional Lorentz-Berthelot combining rules allow for estimation of $\epsilon_{ij}$, $\sigma_{ij}$, and/or $r_{\rm min,ij}$ from the . 
 
@@ -512,5 +536,29 @@ normalized. This has the property that when the weights are equal,
 $N_{\rm eff} = N$, when all but one weight is negligible, $N_{\rm eff} \approx
 1$, and behaves appropriately for intermediate cases. 
 In the case of poor overlap $(N_{\rm eff} \approx 1)$, the predicted values of MBAR will demonstrate a strong bias and the uncertainties will likely be underestimated by the MBAR covariance matrix. 
+
+\section{Description of questions}
+
+What degree of complexity is required to develop a ``technical quality'' force field? 
+
+This research will address the following questions. Can a pairwise additive force field adequately represent the Helmholtz free energy and its derivatives over the entire fluid region of $P \rho T$ space? In other words, is there a non-bonded potential form that can match the accuracy of the REFPROP FEOS? If the extended Lennard-Jones is capable of meeting the task at hand, how many terms are required? Which terms provide the greatest improvement?  How many terms are needed  that can match the REFPROP FEOS 
+The primary questions to b
+
+Considering their complexity, it is unlikely that we will be able to resolve either of these questions during a two year postdoctoral fellowship. However, we will provide som 
+
+For nearly half a century the Lennard-Jones 12-6 potential has inundated the molecular simulation literature. Only in the past decade has the Mie $n$-6 potential received considerable attention. By demonstrating significant improvement at high pressures, the aim of this research is to initiate a paradigm shift in non-bonded potentials, namely, the dawn of the extended Lennard-Jones era.
+
+An FEOS correlation with ``technical accuracy'' is considered reliable over the entire fluid region of technological interest. The primary question of this study is whether or not it is possible to develop a pairwise additive force field of ``technical accuracy.'' Specifically, if enough terms are included in Equation BLANK (ex-LJ), can the force field fit higher order derivatives of the Helmholtz free energy over the entire fluid region of technological interest. Some intermediary questions that will be addressed are, which terms of Equation BLANK provide the greatest improvement in the force field? Without over-fitting, how many terms are required? 
+
+As the ex-LJ has received relatively little attention in the literature, some additional questions are: which coefficients should be negative? To facilitate fitting and physical interpretation, should traditional parameters such as $\epsilon$, $\sigma$, etc. be used to describe the ex-LJ? What type of combining rules should be used when more than two terms are included in the expansion?
+
+We identify four deliverables from this project. First, an improved FEOS for the molecules studies. Second, a force field of ``technical accuracy.'' Third, an increased theoretical understanding of non-bonded potentials. Fourth, an infrastructure for rapid force field parameterization using Helmholtz free energy derivatives. 
+
+The potential impact of this study 
+
+The  
+
+ 
+FEOS correlations with ``technical acc
 
 \end{document}
