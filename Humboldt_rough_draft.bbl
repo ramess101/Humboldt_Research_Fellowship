@@ -1,117 +1,97 @@
 \begin{thebibliography}{10}
 
+\bibitem{LEMMON-RP91}
+Lemmon \textit{et al.}
+\newblock {National Institute of Standards and Technology}, 2018.
+
 \bibitem{Rutkai2013}
-G.~Rutkai, M.~Thol, R.~Lustig, R.~Span, and J.~Vrabec.
-\newblock Communication: Fundamental equation of state correlation with hybrid
-  data sets.
+Rutkai \textit{et al.}
 \newblock {\em The Journal of Chemical Physics}, 139(4):041102, 2013.
 
 \bibitem{Thol2016_siloxane_first}
-M.~Thol, F.H. Dubberke, G.~Rutkai, T.~Windmann, A.~K{\"o}ster, R.~Span, and
-  J.~Vrabec.
-\newblock Fundamental equation of state correlation for hexamethyldisiloxane
-  based on experimental and molecular simulation data.
+Thol \textit{et al.}
 \newblock {\em Fluid Phase Equilibria}, 418:133 -- 151, 2016.
-\newblock Special Issue covering the Nineteenth Symposium on Thermophysical
-  Properties.
 
 \bibitem{Thol2016_siloxane}
-Monika Thol, G{\'a}bor Rutkai, Andreas K{\"o}ster, Frithjof~H. Dubberke,
-  Thorsten Windmann, Roland Span, and Jadran Vrabec.
-\newblock Thermodynamic properties of octamethylcyclotetrasiloxane.
+Thol \textit{et al.}
 \newblock {\em Journal of Chemical \& Engineering Data}, 61(7):2580--2595,
   2016.
 
 \bibitem{Thol2017}
-Monika Thol, G{\'a}bor Rutkai, Andreas K{\"o}ster, Svetlana Miroshnichenko,
-  Wolfgang Wagner, Jadran Vrabec, and Roland Span.
-\newblock Equation of state for 1,2-dichloroethane based on a hybrid data set.
+Thol \textit{et al.}
 \newblock {\em Molecular Physics}, 115(9-12):1166--1185, 2017.
 
 \bibitem{Thol2015}
-Monika Thol, G{\'a}bor Rutkai, Andreas K{\"o}ster, Mirco Kortmann, Roland Span,
-  and Jadran Vrabec.
-\newblock Fundamental equation of state for ethylene oxide based on a hybrid
-  dataset.
+Thol \textit{et al.}
 \newblock {\em Chemical Engineering Science}, 121:87 -- 99, 2015.
-\newblock 2013 Danckwerts Special Issue on Molecular Modelling in Chemical
-  Engineering.
 
 \bibitem{Thol2016_LJ}
-Monika Thol, G{\'a}bor Rutkai, Andreas K{\"o}ster, Rolf Lustig, Roland Span,
-  and Jadran Vrabec.
-\newblock Equation of state for the {Lennard-Jones} fluid.
+Thol \textit{et al.}
 \newblock {\em Journal of Physical and Chemical Reference Data}, 45(2):023101,
   2016.
 
 \bibitem{Thol_LJTS}
-Monika Thol, G{\'a}bor Rutkai, Roland Span, Jadran Vrabec, and Rolf Lustig.
-\newblock Equation of state for the {Lennard-Jones} truncated and shifted model
-  fluid.
+Thol \textit{et al.}
 \newblock {\em International Journal of Thermophysics}, 36(1):25--43, Jan 2015.
 
 \bibitem{Rutkai2017}
-G{\'a}bor Rutkai, Monika Thol, Roland Span, and Jadran Vrabec.
-\newblock How well does the {Lennard-Jones} potential represent the
-  thermodynamic properties of noble gases?
+Rutkai \textit{et al.}
 \newblock {\em Molecular Physics}, 115(9-12):1104--1121, 2017.
 
 \bibitem{Lustig2015}
-Rolf Lustig, G{\'a}bor Rutkai, and Jadran Vrabec.
-\newblock Thermodynamic correlation of molecular simulation data.
+Lustig \textit{et al.}
 \newblock {\em Molecular Physics}, 113(9-10):910--931, 2015.
 
 \bibitem{Rutkai2015}
-G{\'a}bor Rutkai and Jadran Vrabec.
-\newblock Empirical fundamental equation of state for phosgene based on
-  molecular simulation data.
+Rutka \textit{et al.}
 \newblock {\em Journal of Chemical \& Engineering Data}, 60(10):2895--2905,
   2015.
 
 \bibitem{ms2}
-G{\'a}bor Rutkai, Andreas K{\"o}ster, Gabriela Guevara-Carrion, Tatjana Janzen,
-  Michael Schappals, Colin~W. Glass, Martin Bernreuther, Amer Wafai, Simon
-  Stephan, Maximilian Kohns, Steffen Reiser, Stephan Deublein, Martin Horsch,
-  Hans Hasse, and Jadran Vrabec.
-\newblock ms2: A molecular simulation tool for thermodynamic properties,
-  release 3.0.
+Rutkai \textit{et al.}
 \newblock {\em Computer Physics Communications}, 221:343 -- 351, 2017.
 
-\bibitem{Przybytek2017}
-Micha\l{} Przybytek, Wojciech Cencek, Bogumi\l{} Jeziorski, and Krzysztof
-  Szalewicz.
-\newblock Pair potential with submillikelvin uncertainties and nonadiabatic
-  treatment of the halo state of the helium dimer.
-\newblock {\em Phys. Rev. Lett.}, 119:123401, Sep 2017.
+\bibitem{Messerly2018_2}
+Messerly \textit{et al.}
+\newblock {\em Journal of Chemical Physics}, 2018.
+\newblock Pending publication.
+
+\bibitem{Hellmann2017}
+Hellmann \textit{et al.}
+\newblock {\em The Journal of Chemical Physics}, 147(3):034304, 2017.
 
 \bibitem{Stone2013}
 Anthony Stone.
-\newblock The theory of intermolecular forces, 2nd edition.
+\newblock The theory of {I}ntermolecular {F}orces, 2nd edition.
 \newblock 54, 07 2013.
 
+\bibitem{Przybytek2017}
+Przybytek \textit{et al.}
+\newblock {\em Physical Review Letters}, 119:123401, Sep 2017.
+
+\bibitem{Schnabel2007}
+Schnabel \textit{et al.}
+\newblock {\em Journal of Molecular Liquids}, 135(1):170 -- 178, 2007.
+
 \bibitem{Kalos1972}
-Ferenc Kalos and Arthur~E. Grosser.
-\newblock Intermolecular potentials from differential cross sections{: Ar +
-  Ar}.
+Kalos \textit{et al.}
 \newblock {\em Canadian Journal of Chemistry}, 50(6):892--896, 1972.
 
-\bibitem{shirts-chodera:jcp:2008:mbar}
-Michael~R. Shirts and John~D. Chodera.
-\newblock Statistically optimal analysis of samples from multiple equilibrium
-  states.
-\newblock {\em The Journal of Chemical Physics}, 129:124105, 2008.
-
 \bibitem{Messerly2018_1}
-Richard~A. Messerly, S.~Mostafa Razavi, and Michael~R. Shirts.
-\newblock Configuration-sampling-based surrogate models for rapid
-  parameterization of non-bonded interactions.
+Messerly \textit{et al.}
 \newblock {\em Journal of Chemical Theory and Computation}, 14(6):3144--3162,
   2018.
-\newblock PMID: 29727563.
+
+\bibitem{shirts-chodera:jcp:2008:mbar}
+Shirts and Chodera.
+\newblock {\em The Journal of Chemical Physics}, 129:124105, 2008.
 
 \bibitem{Lustig2012}
 Rolf Lustig.
-\newblock Statistical analogues for fundamental equation of state derivatives.
 \newblock {\em Molecular Physics}, 110(24):3041--3052, 2012.
+
+\bibitem{GROMACS_2018}
+GROMACS development team.
+\newblock {\em GROMACS User Manual version 2018}.
 
 \end{thebibliography}
