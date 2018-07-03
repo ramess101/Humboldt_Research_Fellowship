@@ -1,5 +1,11 @@
 \begin{thebibliography}{10}
 
+\bibitem{Rutkai2013}
+G.~Rutkai, M.~Thol, R.~Lustig, R.~Span, and J.~Vrabec.
+\newblock Communication: Fundamental equation of state correlation with hybrid
+  data sets.
+\newblock {\em The Journal of Chemical Physics}, 139(4):041102, 2013.
+
 \bibitem{Thol2016_siloxane_first}
 M.~Thol, F.H. Dubberke, G.~Rutkai, T.~Windmann, A.~K{\"o}ster, R.~Span, and
   J.~Vrabec.
@@ -21,12 +27,6 @@ Monika Thol, G{\'a}bor Rutkai, Andreas K{\"o}ster, Svetlana Miroshnichenko,
   Wolfgang Wagner, Jadran Vrabec, and Roland Span.
 \newblock Equation of state for 1,2-dichloroethane based on a hybrid data set.
 \newblock {\em Molecular Physics}, 115(9-12):1166--1185, 2017.
-
-\bibitem{Rutkai2013}
-G.~Rutkai, M.~Thol, R.~Lustig, R.~Span, and J.~Vrabec.
-\newblock Communication: Fundamental equation of state correlation with hybrid
-  data sets.
-\newblock {\em The Journal of Chemical Physics}, 139(4):041102, 2013.
 
 \bibitem{Thol2015}
 Monika Thol, G{\'a}bor Rutkai, Andreas K{\"o}ster, Mirco Kortmann, Roland Span,
@@ -83,6 +83,17 @@ Micha\l{} Przybytek, Wojciech Cencek, Bogumi\l{} Jeziorski, and Krzysztof
 \newblock Pair potential with submillikelvin uncertainties and nonadiabatic
   treatment of the halo state of the helium dimer.
 \newblock {\em Phys. Rev. Lett.}, 119:123401, Sep 2017.
+
+\bibitem{Stone2013}
+Anthony Stone.
+\newblock The theory of intermolecular forces, 2nd edition.
+\newblock 54, 07 2013.
+
+\bibitem{Kalos1972}
+Ferenc Kalos and Arthur~E. Grosser.
+\newblock Intermolecular potentials from differential cross sections{: Ar +
+  Ar}.
+\newblock {\em Canadian Journal of Chemistry}, 50(6):892--896, 1972.
 
 \bibitem{shirts-chodera:jcp:2008:mbar}
 Michael~R. Shirts and John~D. Chodera.
