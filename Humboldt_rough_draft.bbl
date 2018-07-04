@@ -43,13 +43,9 @@ Lustig \textit{et al.}
 \newblock {\em Molecular Physics}, 113(9-10):910--931, 2015.
 
 \bibitem{Rutkai2015}
-Rutka \textit{et al.}
+Rutkai \textit{et al.}
 \newblock {\em Journal of Chemical \& Engineering Data}, 60(10):2895--2905,
   2015.
-
-\bibitem{ms2}
-Rutkai \textit{et al.}
-\newblock {\em Computer Physics Communications}, 221:343 -- 351, 2017.
 
 \bibitem{Messerly2018_2}
 Messerly \textit{et al.}
@@ -76,6 +72,10 @@ Schnabel \textit{et al.}
 \bibitem{Kalos1972}
 Kalos \textit{et al.}
 \newblock {\em Canadian Journal of Chemistry}, 50(6):892--896, 1972.
+
+\bibitem{ms2}
+Rutkai \textit{et al.}
+\newblock {\em Computer Physics Communications}, 221:343 -- 351, 2017.
 
 \bibitem{Messerly2018_1}
 Messerly \textit{et al.}
