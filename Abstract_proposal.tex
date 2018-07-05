@@ -1,21 +1,73 @@
 \documentclass[12pt]{article}
+% This is a list of the publications
 
 \usepackage[letterpaper, portrait, margin=1in]{geometry}
-\usepackage[numbers,sort&compress,square,super]{natbib}
+\usepackage{cite}
 \usepackage{amsfonts}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{chemfig}
 \usepackage{indentfirst}
 \usepackage{setspace}
+\usepackage{etaremune}
 
-\doublespacing
+%\doublespacing
+
+\title{Short abstract}
+\date{}
+
+\renewcommand\thesection{\Alph{section}}
+
+\newcommand\blfootnote[1]{%
+	\begingroup
+	\renewcommand\thefootnote{}\footnote{#1}%
+	\addtocounter{footnote}{-1}%
+	\endgroup
+}
 
 \begin{document}
-
-The design of an efficient chemical process requires accurate thermophysical property data with corresponding uncertainties. For this reason, the National Institute of Standards and Technology (NIST) Thermodynamics Research Center (TRC) provides evaluated thermodynamic data and correlations. With advances in computer technology in recent years, molecular simulation is an essential tool in this regard. For example, molecular simulation results can supplement and help discern between conflicting sets of experimental data. However, the accuracy in molecular simulation results depends upon the molecular model, i.e. the force field.
-
-Although several force fields exist in the literature, most of these models were developed using trial and error parameterization to a small set of experimental data. Furthermore, the parameters for different functional groups are optimized in a sequential approach that can lead to poor extrapolation when applied to compounds and conditions not included in the training set. Also, these studies rarely report an assessment of uncertainties in the optimal parameters. Each of these deficiencies is intimately related to the high computational cost of molecular simulation. We propose a novel ``post-simulation optimization'' approach to overcome these shortcomings. Our goal is to utilize this method with the extensive, evaluated, experimental data archives available at NIST/TRC to develop an inclusive library of self-consistent, predictive force field models.
-
-
+	
+	\maketitle
+	
+	\pagenumbering{gobble}
+	
+	\section*{Short abstract}
+	
+	\subsection*{Online description}
+	
+	The short abstract of your research proposal should be worded in a manner that is appropriate for non-specialist academics and should summarize the main goals and contents of the research you plan to do in Germany. Please do not use abbreviations without explaining them.
+	
+	\subsection*{My text}
+	
+	Reliable estimates of thermophysical properties are essential for designing efficient and reliable chemical processes. Fundamental equations of state (FEOS) based on the Helmholtz energy allow for prediction of pressure, density, temperature behavior as well as energetic properties, e.g., heat capacities. Unfortunately, most compounds do not have enough reliable experimental data to fit the large number of FEOS parameters. In this case, molecular simulation can supplement experimental data at state points where reliable data are scarce, typically at high temperatures and pressures. 
+	
+	The primary limitation of this so-called "hybrid data set" approach is the accuracy of the force field used in the molecular simulation. Specifically, most force fields perform well for vapor-liquid equilibria properties but extrapolate poorly to high pressures. As thermophysical properties are highly sensitive to the non-bonded interactions, we propose using the extended Lennard-Jones (ex-LJ) potential, which is significantly more flexible than the traditional Lennard-Jones 12-6 potential. Furthermore, we propose an iterative hybrid data set approach, where the ex-LJ parameters are re-optimized after each iteration to ensure self-consistency between the FEOS and the force field.
+	
+	To reduce the computational cost of this iterative approach, we will implement Multistate Bennett Acceptance Ratio (MBAR) combined with basis functions. MBAR with basis functions yields extremely fast estimates of the Helmholtz energy derivatives for any force field parameter set, without performing direct molecular simulation. My expertise with MBAR and basis functions combined with the host's simulation infrastructure and hybrid data set approach makes this an ideal pairing. Furthermore, as we both collaborate closely with expert FEOS developers, the success of this project is very promising.
+	
+	\section*{What do you think will be the impact of your research on the further development of your academic profile?"}
+	
+	My long-term career path is to become a professor, although I continue to have a strong emphasis on "industrially relevant" research. The proposed research is exemplary of applying state-of-the-art scientific/academic methods but with the ultimate impact found in industry. The primary benefit from this research domain is that it allows me to collaborate closely with industry, government research agencies, and academia. In particular, there are several facets in which the proposed research will significantly impact the development of my academic profile:
+	
+	Skills development:
+	
+	\begin{enumerate}
+		\item Although I have collaborated with the NIST group that develops equations of state (REFPROP), I have never developed one myself. This research will allow me to explore the details and better understand the challenges of fitting these high-dimensional non-linear models. This skill would be invaluable if, following my fellowship, I return to academia or NIST or if I pursue a career in industry.
+		\item I will learn Fortran 90, an extremely valuable coding language, and ms2, the molecular simulation package developed by Vrabec's group. Despite my familiarity with various simulation codes and several coding languages, this presents a new challenge/opportunity for me.
+	\end{enumerate}
+	
+	Leadership development:
+	
+	\begin{enumerate}
+		\item I have only mentored undergraduate students. Mentoring doctoral candidates will improve my leadership skills.
+		\item My previous groups were small compared to Vrabec's. Joining Vrabec's group is a great opportunity for me to see firsthand how a larger research group functions.  
+	\end{enumerate}
+	
+	Diversification/Networking:
+	
+	\begin{enumerate}
+		\item My first postdoctoral position was at a US government agency (NIST). I will create new connections with a postdoctoral position at a German university.
+		\item I earned my doctorate at the same university where I completed my bachelors degree. This will help me develop my own methods for teaching and performing research. 
+	\end{enumerate}
+	
 \end{document}
