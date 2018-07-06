@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.8.11)  4 JUL 2018 21:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.8.11)  5 JUL 2018 20:39
 entering extended mode
 **./Key_publications_Humboldt.tex
 (Key_publications_Humboldt.tex
@@ -674,11 +674,11 @@ LaTeX Warning: No \author given.
 Here is how much of TeX's memory you used:
  13667 strings out of 493323
  273279 string characters out of 3130449
- 327697 words of memory out of 3000000
+ 326697 words of memory out of 3000000
  16929 multiletter control sequences out of 15000+200000
  11837 words of font info for 46 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,6n,69p,1039b,199s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 62i,6n,69p,1003b,199s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/ram9/AppData/Local/Programs/MiKTeX 2
 .9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/ram9/AppData/Local/Progr
 ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/ram9/AppData
@@ -686,7 +686,7 @@ ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/ram9/AppData
 am9/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb>
 <C:/Users/ram9/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmti12.pfb>
-Output written on Key_publications_Humboldt.pdf (2 pages, 68808 bytes).
+Output written on Key_publications_Humboldt.pdf (2 pages, 69153 bytes).
 PDF statistics:
  32 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
