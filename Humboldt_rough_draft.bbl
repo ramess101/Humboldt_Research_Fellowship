@@ -2,7 +2,8 @@
 
 \bibitem{LEMMON-RP91}
 Lemmon \textit{et al.}
-\newblock {National Institute of Standards and Technology}, 2018.
+\newblock {NIST Standard Reference Database 23: Reference Fluid Thermodynamic
+  and Transport Properties-REFPROP, Version 10.0}, 2018.
 
 \bibitem{Rutkai2013}
 Rutkai \textit{et al.}
@@ -60,6 +61,7 @@ Hellmann \textit{et al.}
 Stone.
 \newblock The {T}heory of {I}ntermolecular {F}orces, 2nd edition.
 \newblock 54, 2013.
+\newblock OUP Oxford.
 
 \bibitem{Przybytek2017}
 Przybytek \textit{et al.}
